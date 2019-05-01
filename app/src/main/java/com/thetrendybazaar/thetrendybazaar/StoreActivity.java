@@ -7,9 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreActivity extends AppCompatActivity {
 
@@ -45,6 +49,13 @@ public class StoreActivity extends AppCompatActivity {
         accountItem.setTitle(intent.getStringExtra("name"));
 
         recyclerView = findViewById(R.id.items_recycler);
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(12,21,8,12.0,
+                "Quality Teeshirt", "Clothing", "Supreme Tee Shit"));
+        ItemAdapter itemAdapter = new ItemAdapter(this, items);
+        recyclerView.setAdapter(itemAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override

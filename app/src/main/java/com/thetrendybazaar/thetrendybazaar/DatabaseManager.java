@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DatabaseManager {
 
+    static final CustomerManager customers = new CustomerManager();
     static final EmployeeManager employees = new EmployeeManager();
     static final ManufacturerManager manufacturers = new ManufacturerManager();
     static final OrderManager orders = new OrderManager();
@@ -15,6 +16,7 @@ public class DatabaseManager {
     static final ReviewManager reviews = new ReviewManager();
 
     public static void setDb(SQLiteDatabase read, SQLiteDatabase write){
+        customers.setDb(read, write);
         employees.setDb(read, write);
         manufacturers.setDb(read, write);
         orders.setDb(read, write);

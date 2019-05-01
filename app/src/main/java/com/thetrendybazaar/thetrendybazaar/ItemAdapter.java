@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+
+    
+
     public ItemAdapter() {
     }
 

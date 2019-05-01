@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class OrderManager {
     static SQLiteDatabase readDb, writeDb;
-    static String tableName = "Order";
+    static String tableName = "OrderItem";
 
     public int add(Order order){
         ContentValues vals = new ContentValues();

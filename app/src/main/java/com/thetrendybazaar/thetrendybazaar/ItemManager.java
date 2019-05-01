@@ -24,6 +24,18 @@ public class ItemManager {
         writeDb.delete(tableName, "ArticleId=" + item.articleId, null);
     }
 
+    public void update(Item item){
+        ContentValues vals = new ContentValues();
+        vals.put("ArticleId", item.articleId);
+        vals.put("ManufacturerId", item.manufacturerId);
+        vals.put("Quantity", item.quantity);
+        vals.put("Price", item.price);
+        vals.put("Description", item.description);
+        vals.put("Category", item.category);
+        vals.put("ItemName", item.name);
+        writeDb.update(tableName, vals, "ArticleId=" + item.articleId, null);
+    }
+
     public static void setDb(SQLiteDatabase rDb, SQLiteDatabase wDb){
         readDb = rDb;
         writeDb = wDb;

@@ -1,18 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollViewLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/signInText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/arimo_bold"
+            android:text="The Trendy Bazaar"
+            android:textColor="#ad67f4"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInText2" />
+
+        <TextView
+            android:id="@+id/signInText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="96dp"
+            android:fontFamily="@font/arimo_bold"
+            android:text="Sign Up for"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="Find the most trending items!"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInText" />
+
+        <EditText
+            android:id="@+id/firstNameFieldWelcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <ImageView
+            android:id="@+id/firstNameCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/firstNameFieldWelcome"
+            app:layout_constraintTop_toTopOf="@+id/firstNameFieldWelcome"
+            app:srcCompat="@drawable/ic_round_done_24px" />
+
+        <EditText
+            android:id="@+id/lastNameFieldWelcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameFieldWelcome" />
+
+        <ImageView
+            android:id="@+id/lastNameCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/lastNameFieldWelcome"
+            app:layout_constraintTop_toTopOf="@+id/lastNameFieldWelcome"
+            app:srcCompat="@drawable/ic_round_done_24px" />
+
+        <EditText
+            android:id="@+id/emailFieldWelcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastNameFieldWelcome" />
+
+        <ImageView
+            android:id="@+id/emailCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/emailFieldWelcome"
+            app:layout_constraintTop_toTopOf="@+id/emailFieldWelcome"
+            app:srcCompat="@drawable/ic_round_done_24px" />
+
+        <EditText
+            android:id="@+id/passwordFieldWelcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailFieldWelcome" />
+
+        <ImageView
+            android:id="@+id/passwordCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/passwordFieldWelcome"
+            app:layout_constraintTop_toTopOf="@+id/passwordFieldWelcome"
+            app:srcCompat="@drawable/ic_round_done_24px" />
+
+        <TextView
+            android:id="@+id/passwordSuggestionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:text="Passwords must be at least 8 characters long"
+            android:textColor="@android:color/white"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordFieldWelcome" />
+
+        <Button
+            android:id="@+id/signUpButtonWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#3281f7"
+            android:fontFamily="@font/arimo_bold"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordSuggestionText" />
+
+        <Button
+            android:id="@+id/logInButtonWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/arimo_bold"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/signUpButtonWelcome"
+            app:layout_constraintTop_toTopOf="@+id/signUpButtonWelcome" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

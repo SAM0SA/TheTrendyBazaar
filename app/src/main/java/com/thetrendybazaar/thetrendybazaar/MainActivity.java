@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     static CustomerManager customerManager = new CustomerManager();
     //      Text Views
     private  TextView mSuggestionText;
-    int x;
 
     //      EditTexts
     private EditText mFirstNameEditText,

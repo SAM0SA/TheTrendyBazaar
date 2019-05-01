@@ -110,13 +110,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (ManufacturerId) REFERENCES Manufacturer (ManufacturerId)\n" +
                 ");\n");
 
-        db.execSQL("CREATE TABLE ReturnItem (\n" +
-                "\tReturnId INT PRIMARY KEY,\n" +
-                "\tArticleId INT PRIMARY KEY, \n" +
-                "\tFOREIGN KEY (ReturnId) REFERENCES Return(ReturnId),\n" +
-                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
-                ");\n");
-
         db.execSQL("CREATE TABLE Manufacturer (\n" +
                 "\tManufacturerId INT PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tName VARCHAR(100),\n" +
@@ -124,7 +117,25 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tPhone INT,\n" +
                 "\tEmail VARCHAR(100)\n" +
                 ");\n");
+
+
+        db.execSQL("CREATE TABLE ItemShipped (\n" +
+                "\tShipmentId VARCHAR(100),\n" +
+                "\tArticleId VARCHAR(50),\n" +
+                "\tPRIMARY KEY (ShipmentId,ArticleId),\n" +
+                "\tFOREIGN KEY (ShipmentId) REFERENCES Shipment (ShipmentId),\n" +
+                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
+                ");\n");
+
+        db.execSQL("CREATE TABLE ItemReturned (\n" +
+                "\tReturnId INT,\n" +
+                "\tArticleId INT, \n" +
+                "\tPRIMARY KEY (ReturnId, ArticleId),\n" +
+                "\tFOREIGN KEY (ReturnId) REFERENCES Return(ReturnId),\n" +
+                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
+                ");\n");
     }
+
 
 
     @Override

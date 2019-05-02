@@ -10,7 +10,7 @@ public class ShipmentManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Shipment";
 
-    public int add(Shipment shipment){
+    public long add(Shipment shipment){
         ContentValues vals = new ContentValues();
         vals.put("ShipmentId", shipment.shipmentId);
         vals.put("ShippingService", shipment.shippingService);
@@ -18,8 +18,7 @@ public class ShipmentManager {
         vals.put("ShipmentPrice", shipment.shipmentPrice);
         vals.put("OrderNumber", shipment.orderNumber);
 
-        long index = writeDb.insert(tableName, null, vals);
-        return 0;
+        return writeDb.insert(tableName, null, vals);
     }
     public void delete(Shipment shipment){
         writeDb.delete(tableName, "ShipmentId=" + shipment.shipmentId, null);
@@ -52,6 +51,7 @@ public class ShipmentManager {
                     cursor.getInt(3),
                     cursor.getString(4)
             );
+            cursor.close();
         }
         return s;
     }

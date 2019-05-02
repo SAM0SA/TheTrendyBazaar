@@ -10,9 +10,7 @@ public class CustomerManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Customer";
 
-    public int addCustomer(Customer customer){
-//        newDb.execSQL("INSERT INTO " + dbName + " ( FirstName, LastName, EmailAddress, Address, PhoneNumber ) " + " VALUES('" +
-//                customer.firstName + "', '" + customer.lastName + "', '" + customer.email + "', '" + customer.address + "', '" + customer.phone + "');" );
+    public long addCustomer(Customer customer){
         ContentValues vals = new ContentValues();
         vals.put("FirstName", customer.firstName);
         vals.put("LastName", customer.lastName);
@@ -20,9 +18,7 @@ public class CustomerManager {
         vals.put("Password", customer.password);
         vals.put("Address", customer.address);
         vals.put("PhoneNumber", customer.phone);
-        long custId = writeDb.insert(tableName, null, vals);
-        Log.d("CustId: ", "" + custId);
-        return 0;
+        return writeDb.insert(tableName, null, vals);
     }
     public void deleteCustomer(Customer customer){
         writeDb.delete(tableName, "CustomerId=" + customer.id, null);
@@ -45,11 +41,8 @@ public class CustomerManager {
     }
 
     public Customer select(int customerId){
-
-//        Cursor cursor = newDb.rawQuery("SELECT * FROM " + dbName + " WHERE CustomerId = ? ", new String[] {customerId + ""}  );
         Cursor cursor = readDb.query(tableName, null, "CustomerId = ?", new String[]{customerId + ""}, null, null, null, null);
         Customer c = null;
-        Log.d("colname: ", cursor.getColumnName(5));
         if(cursor != null){
             cursor.moveToFirst();
             c = new Customer(
@@ -61,9 +54,8 @@ public class CustomerManager {
                     cursor.getString(5),
                     cursor.getString(6)
             );
-
+            cursor.close();
         }
-
         return c;
     }
 

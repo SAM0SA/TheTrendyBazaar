@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Date;
 
-public class ShoppingCartManager {
+public class CurrentShoppingCartManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "ShoppingCart";
 
@@ -19,6 +19,7 @@ public class ShoppingCartManager {
         return writeDb.insert(tableName, null, vals);
     }
     public void delete(ShoppingCart shoppingCart){
+        DatabaseManager.shoppingCarts.add(this.select(shoppingCart.cartId));
         writeDb.delete(tableName, "CartId=" + shoppingCart.cartId, null);
     }
 

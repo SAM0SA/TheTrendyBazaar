@@ -9,14 +9,13 @@ public class PaymentInfoManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "PaymentInfo";
 
-    public int add(PaymentInfo paymentInfo){
+    public long add(PaymentInfo paymentInfo){
         ContentValues vals = new ContentValues();
         vals.put("CardNumber", paymentInfo.cardNumber);
         vals.put("Type", paymentInfo.type);
         vals.put("SecurityCode", paymentInfo.securityCode);
         vals.put("ExpiryDate", paymentInfo.expiryDate + "");
-        long index = writeDb.insert(tableName, null, vals);
-        return 0;
+        return writeDb.insert(tableName, null, vals);
     }
     public void delete(PaymentInfo paymentInfo){
         writeDb.delete(tableName, "CardNumber=" + paymentInfo.cardNumber, null);
@@ -47,6 +46,7 @@ public class PaymentInfoManager {
                     cursor.getInt(2),
                     new Date(cursor.getLong(3))
             );
+            cursor.close();
         }
         return p;
     }

@@ -1,34 +1,33 @@
 package com.thetrendybazaar.thetrendybazaar;
-
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-public class ItemReturnedManager {
+public class AddsManager {
     static SQLiteDatabase readDb, writeDb;
-    static String tableName = "ItemReturned";
+    static String tableName = "Adds";
 
-    public long add(Item item, Return returnItem){
+    public int add(Customer customer, PaymentInfo paymentInfo){
         ContentValues vals = new ContentValues();
-        vals.put("ReturnId", returnItem.returnId);
-        vals.put("ArticleId", item.articleId);
-        return writeDb.insert(tableName, null, vals);
+        vals.put("CustomerId", customer.id);
+        vals.put("CardNumber", paymentInfo.cardNumber);
+        writeDb.insert(tableName, null, vals);
+        return 0;
     }
-    public void delete(Item item, Return returnItem){
-        writeDb.delete(tableName, "ArticleId= ? AND ReturnId= ?", new String[] {item.articleId + "", returnItem.returnId + ""});
+    public void delete(Customer customer, PaymentInfo paymentInfo){
+        writeDb.delete(tableName, "CustomerId= ? AND CardNumber= ?", new String[] {customer.id + "", paymentInfo.cardNumber + ""});
     }
 
-    public void update(Item item, Return returnItem){
+    public void update(Customer customer, PaymentInfo paymentInfo){
         ContentValues vals = new ContentValues();
-        vals.put("ReturnId", returnItem.returnId);
-        vals.put("ArticleId", item.articleId);
-        writeDb.update(tableName, vals, "ArticleId= ? AND ReturnId= ?", new String[] {item.articleId + "", returnItem.returnId + ""});
+        vals.put("CustomerId", customer.id);
+        vals.put("CardNumber", paymentInfo.cardNumber);
+        writeDb.update(tableName, vals, "CustomerId= ? AND CardNumber= ?", new String[] {customer.id + "", paymentInfo.cardNumber + ""});
     }
 
     public static void setDb(SQLiteDatabase rDb, SQLiteDatabase wDb){
         readDb = rDb;
         writeDb = wDb;
     }
-
 
 
     public void select(int articleId, int shipmentId){

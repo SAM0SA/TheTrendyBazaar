@@ -10,7 +10,7 @@ public class EmployeeManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Employee";
 
-    public int add(Employee employee){
+    public long add(Employee employee){
         ContentValues vals = new ContentValues();
         vals.put("EmployeeId", employee.employeeId);
         vals.put("Position", employee.position);
@@ -19,8 +19,7 @@ public class EmployeeManager {
         vals.put("FirstName", employee.firstName);
         vals.put("LastName", employee.lastName);
 
-        long index = writeDb.insert(tableName, null, vals);
-        return 0;
+        return writeDb.insert(tableName, null, vals);
     }
     public void delete(Employee employee){
         writeDb.delete(tableName, "EmployeeId=" + employee.employeeId, null);
@@ -55,6 +54,7 @@ public class EmployeeManager {
                     cursor.getString(4),
                     cursor.getString(5)
             );
+            cursor.close();
         }
         return e;
     }

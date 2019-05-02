@@ -22,4 +22,12 @@ public class ShoppingCart {
                 ", customerId=" + customerId +
                 '}';
     }
+
+    public void updatePrice(Item item){
+        totalPrice += item.price;
+    }
+
+    public void updateQuantity(int quantityToAdd){
+        itemQuantity += quantityToAdd;
+    }
 }

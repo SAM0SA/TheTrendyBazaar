@@ -34,6 +34,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
         Review review = reviews.get(position);
         holder.reviewRating.setRating(review.rating);
         holder.detailedReview.setText(review.detailedReview);
+        holder.reviewDate.setText(DatabaseManager.writes.getDateOfReview(review));
     }
 
     @Override
@@ -45,12 +46,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 class ReviewViewHolder extends RecyclerView.ViewHolder{
     RatingBar reviewRating;
     TextView detailedReview;
+    TextView reviewDate;
 
     public ReviewViewHolder(View itemView) {
         super(itemView);
 
         reviewRating = itemView.findViewById(R.id.review_item_ratingBar);
         detailedReview = itemView.findViewById(R.id.detailed_review);
+        reviewDate = itemView.findViewById(R.id.review_date);
 
     }
 }

@@ -17,7 +17,9 @@ public class ReviewManager {
         vals.put("ArticleId", review.articleId);
         vals.put("Rating", review.rating);
         vals.put("DetailedReview", review.detailedReview);
-        return writeDb.insert(tableName, null, vals);
+        long id = writeDb.insert(tableName, null, vals);
+        review.id = (int)id;
+        return id;
     }
 
     public void delete(Review review){
@@ -57,12 +59,6 @@ public class ReviewManager {
 
     public int getAvgRating(int articleId){
         Cursor cursor = readDb.rawQuery("SELECT AVG(Rating) FROM " + tableName + " WHERE ArticleId = " + articleId, null);
-        cursor.moveToFirst();
-        return cursor.getInt(0);
-    }
-
-    public int getReviewCount(int articleId){
-        Cursor cursor = readDb.rawQuery("SELECT COUNT(*) FROM " + tableName + " WHERE ArticleId = " + articleId, null);
         cursor.moveToFirst();
         return cursor.getInt(0);
     }

@@ -19,6 +19,8 @@ public class StoreActivity extends AppCompatActivity {
 
     private NavigationView mNavigationView;
     private MenuItem accountItem;
+    List<Item> items;
+    ItemAdapter itemAdapter;
 
 //    Toolbar
     private Toolbar toolbar;
@@ -49,11 +51,18 @@ public class StoreActivity extends AppCompatActivity {
         accountItem.setTitle(intent.getStringExtra("name"));
 
         recyclerView = findViewById(R.id.items_recycler);
-        List<Item> items = DatabaseManager.items.getItems();
-        ItemAdapter itemAdapter = new ItemAdapter(this, items);
+        items = DatabaseManager.items.getItems();
+        itemAdapter = new ItemAdapter(this, items);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    @Override
+    protected void onStart() {
+        items = DatabaseManager.items.getItems();
+        itemAdapter.notifyDataSetChanged();
+        super.onStart();
     }
 
     @Override

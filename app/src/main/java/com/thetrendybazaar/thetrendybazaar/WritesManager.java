@@ -11,9 +11,9 @@ public class WritesManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Writes";
 
-    public long add(Customer customer, Review review){
+    public long add(int customerId, Review review){
         ContentValues vals = new ContentValues();
-        vals.put("CustomerId", customer.id);
+        vals.put("CustomerId", customerId);
         vals.put("ReviewId", review.id);
         vals.put("Date",  Calendar.getInstance().getTime().toString());
         return writeDb.insert(tableName, null, vals);
@@ -22,8 +22,8 @@ public class WritesManager {
         writeDb.delete(tableName, "CustomerId= ? AND ReviewId= ?", new String[] {customer.id + "", review.id + ""});
     }
 
-    public String getDateOfReview(Review reviewId){
-        Cursor cursor = readDb.query(tableName, null, "ReviewId = ?", new String[]{reviewId + ""}, null, null, null, null);
+    public String getDateOfReview(Review review){
+        Cursor cursor = readDb.query(tableName, null, "ReviewId = ?", new String[]{review.id + ""}, null, null, null, null);
         if(cursor != null){
             cursor.moveToFirst();
         }

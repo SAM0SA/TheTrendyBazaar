@@ -81,6 +81,43 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/review-container">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:id="@+id/review-box"
+                    android:gravity="top"
+                    android:padding="10dp"
+                    android:background="@drawable/review_border"
+                    android:hint="Write Review"/>
+
+                <RatingBar
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/submitReviewRating"
+                    android:layout_weight="1"
+                    android:padding="10dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit a Review"
+                    android:id="@+id/review-submit-btn"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@android:color/black"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -19,7 +19,9 @@ public class ItemManager {
         vals.put("Description", item.description);
         vals.put("Category", item.category);
         vals.put("ItemName", item.name);
-        return writeDb.insert(tableName, null, vals);
+        long id =  writeDb.insert(tableName, null, vals);
+        item.articleId = (int) id;
+        return id;
     }
     public void delete(Item item){
         writeDb.delete(tableName, "ArticleId=" + item.articleId, null);

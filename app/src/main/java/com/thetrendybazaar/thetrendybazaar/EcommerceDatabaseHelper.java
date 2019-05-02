@@ -83,7 +83,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tTotalPrice DOUBLE,\n" +
                 "\tItemQuantity INT,\n" +
                 "\tCustomerId INT,\n" +
-                "\tPRIMARY KEY (CartId),\n" +
                 "\tFOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)\n" +
                 ");\n");
 
@@ -156,7 +155,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tDate DATETIME,\n" +
                 "\tPRIMARY KEY (ReviewId),\n" +
                 "FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),\n" +
-                "\tFOREIGN KEY (ReviewId) REFERENCES Reviews(ReviewId)\n" +
+                "\tFOREIGN KEY (ReviewId) REFERENCES Review(ReviewId)\n" +
                 "\t\tON DELETE CASCADE\n" +
                 ");\n");
 
@@ -191,12 +190,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item(ArticleId)\n" +
                 "\tON DELETE CASCADE" +
                 ");\n");
-
-        db.execSQL("\tCREATE TRIGGER PaymentMethodExists BEFORE INSERT ON Places" +
-                "\tBEGIN"+
-                " SELECT CASE WHEN (SELECT COUNT(*) FROM Adds A" +
-                " WHERE A.CustomerId=" + "NEW.CustomerId)" +
-                "<=0" + "\tTHEN\tRAISE (ABORT, '') END;END;");
 
         db.execSQL("CREATE TABLE Supplies (\n" +
                 "\tManufacturerId INT,\n" +
@@ -242,7 +235,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tOrderNumber INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tCartId INT,\n" +
                 "\tOrderDate DATETIME,\n" +
-                "\tPRIMARY KEY (OrderNumber),\n" +
                 "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber),\n" +
                 "\tFOREIGN KEY (CartId) REFERENCES ShoppingCart (CartId)\n" +
                 ");\n");
@@ -258,7 +250,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("\n" +
                 "CREATE TABLE Tags (\n" +
-                "\tArticleId INT PRIMARY KEY,\n" +
+                "\tArticleId INT,\n" +
                 "\t Tag VARCHAR(50),\n" +
                 "\t GroupNumber INT,\n" +
                 "\tPRIMARY KEY (ArticleId,Tag),\n" +

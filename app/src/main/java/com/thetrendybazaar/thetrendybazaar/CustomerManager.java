@@ -12,13 +12,16 @@ public class CustomerManager {
 
     public long addCustomer(Customer customer){
         ContentValues vals = new ContentValues();
+        vals.put("CustomerId", customer.id);
         vals.put("FirstName", customer.firstName);
         vals.put("LastName", customer.lastName);
         vals.put("EmailAddress", customer.email);
         vals.put("Password", customer.password);
         vals.put("Address", customer.address);
         vals.put("PhoneNumber", customer.phone);
-        return writeDb.insert(tableName, null, vals);
+        long id =  writeDb.insert(tableName, null, vals);
+        customer.id = (int) id;
+        return id;
     }
     public void deleteCustomer(Customer customer){
         writeDb.delete(tableName, "CustomerId=" + customer.id, null);

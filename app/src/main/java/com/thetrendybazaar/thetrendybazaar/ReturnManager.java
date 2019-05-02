@@ -16,7 +16,9 @@ public class ReturnManager {
         vals.put("ItemQuantity", returnItem.itemQuantity);
         vals.put("OrderNumber", returnItem.orderNumber);
         vals.put("ReturnReason", returnItem.returnReason);
-        return writeDb.insert(tableName, null, vals);
+        long id = writeDb.insert(tableName, null, vals);
+        returnItem.returnId = (int)id;
+        return id;
     }
     public void delete(Return returnItem){
         writeDb.delete(tableName, "ReturnId=" + returnItem.returnId, null);

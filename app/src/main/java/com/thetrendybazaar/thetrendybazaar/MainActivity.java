@@ -13,13 +13,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
     // Database Helpers
-    EcommerceDatabaseHelper db = new EcommerceDatabaseHelper(this);
+    EcommerceDatabaseHelper db ;
     static CustomerManager customerManager = new CustomerManager();
     //      Text Views
     private  TextView mSuggestionText;
@@ -51,19 +52,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db = new EcommerceDatabaseHelper(this);
+
 //        Database
         DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
-        //this.deleteDatabase("Ecommerce");
+//       this.deleteDatabase("Ecommerce");
         //DatabaseManager.setDb();
 
-//        for(int i =0; i < 15; i++){
-//            Item item = new Item(null,1,8,12.0,
-//                    "Quality Teeshirt " + i, "Clothing",
-//                    "Supreme Tee Shit" + i);
-//            long id = DatabaseManager.items.add(item);
-//
-//            Review review = new Review(null, 1, 5, "Some review of product" + 1);
+//        for(int i = 0; i < 15; i++){
+//            Customer customer = new Customer(null, "name"+i, "lastName"+i,
+//                    null, null, null, null);
+//            DatabaseManager.customers.addCustomer(customer);
+//            Item item = new Item(null, 12, 10,12.50,
+//                    "This is an item description", "Clothing", "Supreme Tee " + i);
+//            DatabaseManager.items.add(item);
+//            Review review = new Review(null,item.articleId,3,
+//                    "This is a detailed review of some random product");
 //            DatabaseManager.reviews.add(review);
+//            List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
+//            DatabaseManager.writes.add(customer,reviews.get(0));
 //        }
 
 //        Text Views

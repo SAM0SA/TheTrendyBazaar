@@ -11,14 +11,13 @@ public class ReviewManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Review";
 
-    public int add(Review review){
+
+    public long add(Review review){
         ContentValues vals = new ContentValues();
         vals.put("ArticleId", review.articleId);
         vals.put("Rating", review.rating);
         vals.put("DetailedReview", review.detailedReview);
-        long reviewId = writeDb.insert(tableName, null, vals);
-        Log.d("ReviewId: ", "" + reviewId);
-        return 0;
+        return writeDb.insert(tableName, null, vals);
     }
 
     public void delete(Review review){
@@ -45,8 +44,15 @@ public class ReviewManager {
                 );
                 reviews.add(r);
             }while(cursor.moveToNext());
+            cursor.close();
         }
         return reviews;
+    }
+
+    public int getReviewCount(int articleId){
+        Cursor cursor = readDb.rawQuery("SELECT COUNT(*) FROM " + tableName + " WHERE ArticleId = " + articleId, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
     public int getAvgRating(int articleId){
@@ -66,6 +72,7 @@ public class ReviewManager {
                     Integer.parseInt(cursor.getString(2)),
                     cursor.getString(3)
             );
+            cursor.close();
         }
         return r;
     }

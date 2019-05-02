@@ -55,6 +55,12 @@ public class ReviewManager {
         return cursor.getInt(0);
     }
 
+    public int getReviewCount(int articleId){
+        Cursor cursor = readDb.rawQuery("SELECT COUNT(*) FROM " + tableName + " WHERE ArticleId = " + articleId, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
     public Review select(int reviewId){
         Cursor cursor = readDb.query(tableName, null, "ReviewId = ?", new String[]{reviewId + ""}, null, null, null, null);
         Review r = null;

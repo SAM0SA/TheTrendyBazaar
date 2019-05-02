@@ -4,11 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class ItemManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Item";
 
-    public int add(Item item){
+    public long add(Item item){
         ContentValues vals = new ContentValues();
         vals.put("ArticleId", item.articleId);
         vals.put("ManufacturerId", item.manufacturerId);
@@ -18,7 +20,7 @@ public class ItemManager {
         vals.put("Category", item.category);
         vals.put("ItemName", item.name);
         long articleId = writeDb.insert(tableName, null, vals);
-        return 0;
+        return articleId;
     }
     public void delete(Item item){
         writeDb.delete(tableName, "ArticleId=" + item.articleId, null);
@@ -57,5 +59,27 @@ public class ItemManager {
             );
         }
         return i;
+    }
+
+    public ArrayList<Item> getItems(){
+        Cursor cursor = readDb.query(tableName, null, null, null, null, null, null, null);
+        ArrayList<Item> items = new ArrayList<>();
+        Item i;
+        if(cursor != null){
+            cursor.moveToFirst();
+            do{
+                i = new Item(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getInt(2),
+                        cursor.getDouble(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6)
+                );
+                items.add(i);
+            }while(cursor.moveToNext());
+        }
+        return items;
     }
 }

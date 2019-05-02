@@ -75,7 +75,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tTotalPrice INT,\n" +
                 "\tItemQuantity INT,\n" +
                 "\tCustomerId INT,\n" +
-                "\tPRIMARY KEY (CartId),\n" +
                 "\tFOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)\n" +
                 ");\n");
 
@@ -91,7 +90,6 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE Shipment (\n" +
                 "\tShipmentId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tAddress VARCHAR(100),\n" +
-                "ShipmentId INT,\n" +
                 "\tShipmentType VARCHAR(250),\n" +
                 "\tShipmentPrice VARCHAR(30),\n" +
                 "\tOrderNumber INT,\n" +
@@ -111,7 +109,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 ");\n");
 
         db.execSQL("CREATE TABLE Manufacturer (\n" +
-                "\tManufacturerId INT PRIMARY KEY AUTOINCREMENT,\n" +
+                "\tManufacturerId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tName VARCHAR(100),\n" +
                 "\tAddress VARCHAR(100),\n" +
                 "\tPhone INT,\n" +

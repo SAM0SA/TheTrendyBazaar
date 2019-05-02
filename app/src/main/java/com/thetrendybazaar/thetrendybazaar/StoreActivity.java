@@ -49,9 +49,7 @@ public class StoreActivity extends AppCompatActivity {
         accountItem.setTitle(intent.getStringExtra("name"));
 
         recyclerView = findViewById(R.id.items_recycler);
-        List<Item> items = new ArrayList<>();
-        items.add(new Item(12,21,8,12.0,
-                "Quality Teeshirt", "Clothing", "Supreme Tee Shit"));
+        List<Item> items = DatabaseManager.items.getItems();
         ItemAdapter itemAdapter = new ItemAdapter(this, items);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

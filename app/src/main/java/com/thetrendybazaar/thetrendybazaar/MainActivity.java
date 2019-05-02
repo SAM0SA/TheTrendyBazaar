@@ -52,7 +52,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        Database
-        customerManager.setDb(db.getReadDb(), db.getWriteDb());
+        DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
+        //this.deleteDatabase("Ecommerce");
+        //DatabaseManager.setDb();
+
+//        for(int i =0; i < 15; i++){
+//            Item item = new Item(null,1,8,12.0,
+//                    "Quality Teeshirt " + i, "Clothing",
+//                    "Supreme Tee Shit" + i);
+//            long id = DatabaseManager.items.add(item);
+//
+//            Review review = new Review(null, 1, 5, "Some review of product" + 1);
+//            DatabaseManager.reviews.add(review);
+//        }
 
 //        Text Views
         mSuggestionText = findViewById(R.id.passwordSuggestionText);

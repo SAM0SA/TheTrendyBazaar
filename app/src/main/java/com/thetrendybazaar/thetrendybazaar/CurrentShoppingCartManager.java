@@ -18,9 +18,14 @@ public class CurrentShoppingCartManager {
         vals.put("CustomerId", shoppingCart.customerId);
         return writeDb.insert(tableName, null, vals);
     }
-    public void delete(ShoppingCart shoppingCart){
-        DatabaseManager.shoppingCarts.add(this.select(shoppingCart.cartId));
-        writeDb.delete(tableName, "CartId=" + shoppingCart.cartId, null);
+    public void deleteAndAddOrder(int shoppingCartId, long cardNumber, String address){
+        DatabaseManager.shoppingCarts.add(this.select(shoppingCartId));
+        Order newOrder = new Order(null, shoppingCartId, cardNumber, address);
+        DatabaseManager.orders.add(newOrder);
+        int customerId = this.getCustomerId(shoppingCartId);
+        DatabaseManager.places.add(customerId,newOrder.orderNumber);
+        this.generateNewCart(customerId);
+        writeDb.delete(tableName, "CartId=" + shoppingCartId, null);
     }
 
     public void update(ShoppingCart shoppingCart){
@@ -40,7 +45,7 @@ public class CurrentShoppingCartManager {
     public ShoppingCart select(int cartId){
         Cursor cursor = readDb.query(tableName, null, "CartId = ?", new String[]{cartId + ""}, null, null, null, null);
         ShoppingCart s = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             s = new ShoppingCart(
                     cursor.getInt(0),
@@ -75,6 +80,7 @@ public class CurrentShoppingCartManager {
         vals.put("TotalPrice", 0.0);
         vals.put("ItemQuantity", 0);
         long id = writeDb.insert(tableName, null, vals);
+        ShoppingCart.currentShoppingCardId = (int) id;
         return new ShoppingCart((int)id, 0.0, 0, customerId);
     }
 
@@ -90,5 +96,11 @@ public class CurrentShoppingCartManager {
         currCart.updatePrice(DatabaseManager.items.select(articleId).price*quantity*-1);
         currCart.updateQuantity(quantity*-1);
         this.update(currCart);
+    }
+
+    public int getCustomerId(int cartId){
+        Cursor cursor = readDb.query(tableName, null, "CartId= ?", new String[]{cartId + ""}, null, null, null, null);
+        cursor.moveToFirst();
+        return cursor.getInt(3);
     }
 }

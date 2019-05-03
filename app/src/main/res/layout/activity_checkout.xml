@@ -1,9 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".CheckoutActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="24dp"
+            android:text="SHIPPING INFORMATION"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textPersonName"
+            android:id="@+id/checkout_firstname"
+            android:hint="First Name"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            android:id="@+id/checkout_lastname"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Shipping Address"
+            android:inputType="textPostalAddress"
+            android:id="@+id/check_out_shipping_address"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Phone Number"
+            android:maxLength="10"
+            android:inputType="phone"
+            android:id="@+id/check_out_phone_num"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="24dp"
+            android:text="PAYMENT INFO"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Billing Address"
+            android:inputType="textPostalAddress"
+            android:id="@+id/check_out_billing_address"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="18dp"
+            android:text="PAYMENT TYPE"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/payment_type"
+            android:layout_margin="10dp">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/visa"
+                android:text="VISA"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/master_card"
+                android:text="MASTERCARD"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/discover"
+                android:text="DISCOVER"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/american_express"
+                android:text="AMERICAN EXPRESS"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/other"
+                android:text="OTHER"/>
+        </RadioGroup>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/review_border"
+            android:padding="10dp"
+            android:hint="Credit Card Number"
+            android:inputType="number"
+            android:maxLength="16"
+            android:id="@+id/check_out_card_num"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/review_border"
+            android:padding="7dp"
+            android:inputType="date"
+            android:maxLength="5"
+            android:hint="MM/YY"
+            android:id="@+id/check_out_card_exp_date"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/review_border"
+            android:padding="7dp"
+            android:hint="CVC"
+            android:id="@+id/check_out_card_cvc"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:textSize="18dp"
+            android:text="Total"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:id="@+id/check_out_total"
+            android:text="$25.45"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:text="PURCHASE"
+            android:textSize="18dp"
+            android:id="@+id/check_out_purchase_btn"
+            android:background="@android:color/black"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -22,7 +22,7 @@ public class DatabaseManager {
     static final SuppliesManager supplies = new SuppliesManager();
     static final ReportsToManager reportsTo = new ReportsToManager();
     static final UpdatesManager updates = new UpdatesManager();
-    static final SentForManager sentFor = new SentForManager();
+    static final SentForShipmentManager sentFor = new SentForShipmentManager();
     static final ContainsManager contains = new ContainsManager();
     static final GeneratedFromManager generatedFrom = new GeneratedFromManager();
     static final TagsManager tags = new TagsManager();

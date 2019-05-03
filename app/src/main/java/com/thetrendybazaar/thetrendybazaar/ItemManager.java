@@ -49,7 +49,7 @@ public class ItemManager {
         Cursor cursor = readDb.query(tableName, null, null, null, null, null, null, null);
         ArrayList<Item> items = new ArrayList<>();
         Item i;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 i = new Item(
@@ -70,7 +70,7 @@ public class ItemManager {
     public ArrayList<Item> getItemsByCategory(String category){
         Cursor cursor = readDb.query(tableName, null, "Category = ?", new String[] {category + ""}, null, null, null, null);
         ArrayList<Item> categoryItems = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             Item i;
             cursor.moveToFirst();
             do{
@@ -92,10 +92,19 @@ public class ItemManager {
         cursor.moveToFirst();
         return cursor.getInt(0);
     }
+    public void alterQuantity(int articleId, int addQuantity){
+        ContentValues vals = new ContentValues();
+        Item i = DatabaseManager.items.select(articleId);
+        i.quantity = i.quantity + addQuantity;
+        vals.put("ArticleId", articleId);
+        vals.put("Quantity", i.quantity);
+        writeDb.update(tableName, vals, "ArticleId=" + articleId, null);
+    }
+
     public Item select(int articleId){
         Cursor cursor = readDb.query(tableName, null, "ArticleId = ?", new String[]{articleId + ""}, null, null, null, null);
         Item i = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             i = new Item(
                     cursor.getInt(0),

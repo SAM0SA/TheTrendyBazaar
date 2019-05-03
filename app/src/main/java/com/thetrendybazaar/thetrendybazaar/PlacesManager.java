@@ -12,17 +12,18 @@ import java.util.Calendar;
 
 public class PlacesManager {
     static SQLiteDatabase readDb, writeDb;
-    static String tableName = "Adds";
+    static String tableName = "Places";
 
-    public long add(Customer customer, Order order){
+    public long add(int customerId, int orderNumber){
         ContentValues vals = new ContentValues();
-        vals.put("CustomerId", customer.id);
-        vals.put("OrderNumber", order.orderNumber);
+        vals.put("CustomerId", customerId);
+        vals.put("OrderNumber", orderNumber);
         vals.put("Date", Calendar.getInstance().getTime().toString());
         long index = writeDb.insert(tableName, null, vals);
-        adjustForOrder(order);
+        adjustForOrder(DatabaseManager.orders.select(orderNumber));
         return index;
     }
+
     public void delete(Order order){
         writeDb.delete(tableName, "OrderNumber= ?", new String[] {order.orderNumber  + ""});
     }
@@ -43,10 +44,11 @@ public class PlacesManager {
     public void adjustForOrder(Order order){
         ShoppingCart cart = DatabaseManager.currentShoppingCarts.select(order.cartId);
         ArrayList<Item> itemsInOrder = DatabaseManager.contains.getItemsForShoppingCart(cart.cartId);
-        for(int j = 0; j<cart.itemQuantity; j++){
+        for(int j = 0; j<itemsInOrder.size(); j++){
             Item i = itemsInOrder.get(j);
             i.quantity = i.quantity - 1;
             DatabaseManager.items.update(i);
+            DatabaseManager.updates.add(order, null, i, null, i.quantity);
         }
     }
     public ArrayList<Order> getOrdersMadeByCustomer(Customer customer){
@@ -66,6 +68,12 @@ public class PlacesManager {
 
     public int getOrderCount(Customer customer){
         Cursor cursor = readDb.rawQuery("SELECT COUNT(*) FROM " + tableName + " WHERE CustomerId = " + customer.id, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public int getCustomerId(int orderNumber){
+        Cursor cursor = readDb.query(tableName, null, "OrderNumber= ?", new String[]{orderNumber + ""}, null, null, null, null);
         cursor.moveToFirst();
         return cursor.getInt(0);
     }

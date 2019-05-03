@@ -13,6 +13,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Database Helpers
     EcommerceDatabaseHelper db ;
-    static CustomerManager customerManager = new CustomerManager();
+    //static CustomerManager customerManager = new CustomerManager();
     //      Text Views
     private  TextView mSuggestionText;
 
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        for(int i = 0; i < 15; i++){
 //            Customer customer = new Customer(null, "name"+i, "lastName"+i,
-//                    null, null, null, null);
+//                    i +"@g.com", "password", null, null);
 //            DatabaseManager.customers.addCustomer(customer);
 //            Item item = new Item(null, 12, 10,12.50,
 //                    "This is an item description", "Clothing", "Supreme Tee " + i);
@@ -73,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 //            List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
 //            DatabaseManager.writes.add(customer.id,reviews.get(0));
 //        }
+//
+//        DatabaseManager.employees.add(new Employee(null, "Worker",
+//                Calendar.getInstance().getTime(), 1, "Bob",
+//                "Builder", "Password"));
 
 //        Text Views
         mSuggestionText = findViewById(R.id.passwordSuggestionText);
@@ -136,10 +142,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void goToLoginActivity() {
-        Intent loginIntent = new Intent(MainActivity.this, StoreActivity.class);
-        // DELETE LATER
-        //loginIntent.putExtra("id", 1);
-        Customer.currentCustomerId = 1;
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
 
@@ -153,14 +156,14 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null);
 
-        customerManager.addCustomer(customer);
-//        c = customerManager.select(1);
-        Toast.makeText(this, customer.toString(), Toast.LENGTH_LONG).show();
+        DatabaseManager.customers.addCustomer(customer);
+        Customer.currentCustomerId = customer.id;
+        Toast.makeText(this, "Welcome "+ customer.firstName, Toast.LENGTH_LONG).show();
 
 
         Intent storeIntent = new Intent(MainActivity.this, StoreActivity.class);
-        storeIntent.putExtra("id", customer.id );
         startActivity(storeIntent);
+        finish();
     }
 
     private View.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {

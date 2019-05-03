@@ -1,6 +1,7 @@
 package com.thetrendybazaar.thetrendybazaar;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -100,7 +102,17 @@ public class ItemActivity extends AppCompatActivity {
 
         addToCartBtn = findViewById(R.id.add_to_cart_btn);
         addToCartBtn.setOnClickListener(e -> {
-            DatabaseManager.contains.add(currentItem.articleId, ShoppingCart.currentShoppingCardId);
+            int quantityOfItem = DatabaseManager.items.select(currentItem.articleId).quantity;
+            if(quantityOfItem==0){
+                Toast.makeText(this, "Item sold out!",
+                        Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                //decrease item quantity
+                DatabaseManager.items.alterQuantity(currentItem.articleId, -1);
+                DatabaseManager.contains.add(currentItem.articleId, ShoppingCart.currentShoppingCardId);
+            }
         });
 
 

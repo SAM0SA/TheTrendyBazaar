@@ -82,4 +82,31 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/cart_item_price"
         app:layout_constraintTop_toBottomOf="@+id/cart_item_quantity" />
+
+    <EditText
+        android:id="@+id/item_dash_quanitiy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/review_border"
+        android:hint="123"
+        android:padding="5dp"
+        android:inputType="number"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/cart_item_total"
+        app:layout_constraintTop_toBottomOf="@+id/cart_item_total" />
+
+    <Button
+        android:id="@+id/dash_update_button"
+        android:layout_width="61dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/black"
+        android:text="Update"
+        android:textColor="@android:color/white"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/item_dash_quanitiy"
+        app:layout_constraintStart_toEndOf="@+id/item_dash_quanitiy"
+        app:layout_constraintTop_toTopOf="@+id/item_dash_quanitiy" />
 </android.support.constraint.ConstraintLayout>

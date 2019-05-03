@@ -62,5 +62,16 @@ public class CustomerManager {
         return c;
     }
 
+    public int validLogin(String email, String password){
+        Cursor cursor = readDb.query(tableName, null, "EmailAddress = ? AND Password = ?", new String[]{email, password}, null, null, null, null);
+        if(cursor!=null && cursor.getCount()>0){
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return -1;
+    }
+
+
+
 
 }

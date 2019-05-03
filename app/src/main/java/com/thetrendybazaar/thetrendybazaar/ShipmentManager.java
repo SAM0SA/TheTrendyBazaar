@@ -12,6 +12,7 @@ public class ShipmentManager {
 
     public long add(Shipment shipment){
         ContentValues vals = new ContentValues();
+        vals.put("Address", shipment.address);
         vals.put("ShipmentId", shipment.shipmentId);
         vals.put("ShippingService", shipment.shippingService);
         vals.put("ShipmentType", shipment.shipmentType);
@@ -26,6 +27,7 @@ public class ShipmentManager {
 
     public void update(Shipment shipment){
         ContentValues vals = new ContentValues();
+        vals.put("Address", shipment.address);
         vals.put("ShipmentId", shipment.shipmentId);
         vals.put("ShippingService", shipment.shippingService);
         vals.put("Shipmenttype", shipment.shipmentType);
@@ -49,7 +51,8 @@ public class ShipmentManager {
                     cursor.getString(1),
                     cursor.getDouble(2),
                     cursor.getInt(3),
-                    cursor.getString(4)
+                    cursor.getString(4),
+                    cursor.getString(5)
             );
             cursor.close();
         }

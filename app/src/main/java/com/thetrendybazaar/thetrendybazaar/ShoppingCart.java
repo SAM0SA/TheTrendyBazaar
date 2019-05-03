@@ -6,6 +6,7 @@ public class ShoppingCart {
     Integer itemQuantity;
     Integer customerId;
     static int currentShoppingCardId = -1;
+    static double currentShoppingCartPrice = -1;
 
     public ShoppingCart(Integer cartId, Double totalPrice, Integer itemQuantity, Integer customerId) {
         this.cartId = cartId;

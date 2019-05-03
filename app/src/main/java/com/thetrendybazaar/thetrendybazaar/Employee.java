@@ -1,6 +1,6 @@
 package com.thetrendybazaar.thetrendybazaar;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Employee {
     Integer employeeId;
@@ -9,14 +9,17 @@ public class Employee {
     Integer supervisorId;
     String firstName;
     String lastName;
+    String password;
+    static int currentEmployeeId = -1;
 
-    public Employee(Integer employeeId, String position, Date dateJoined, Integer supervisorId, String firstName, String lastName) {
+    public Employee(Integer employeeId, String position, Date dateJoined, Integer supervisorId, String firstName, String lastName, String password) {
         this.employeeId = employeeId;
         this.position = position;
         this.dateJoined = dateJoined;
         this.supervisorId = supervisorId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
     }
 
     @Override

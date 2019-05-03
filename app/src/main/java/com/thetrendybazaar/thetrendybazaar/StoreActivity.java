@@ -57,6 +57,17 @@ public class StoreActivity extends AppCompatActivity {
         ShoppingCart.currentShoppingCardId = shoppingCart.cartId;
 
         mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(e -> {
+            switch (e.getItemId()){
+                case R.id.drawer_log_out:
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+
+            }
+            return true;
+        });
         accountItem = mNavigationView.getMenu().findItem(R.id.drawer_my_account);
 
         accountItem.setTitle(customer.firstName);
@@ -84,6 +95,6 @@ public class StoreActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-        else super.onBackPressed();
+        else this.moveTaskToBack(true);
     }
 }

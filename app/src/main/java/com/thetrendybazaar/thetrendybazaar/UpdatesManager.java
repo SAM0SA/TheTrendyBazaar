@@ -11,14 +11,14 @@ public class UpdatesManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Updates";
 
-    public long add(Order order, Return returnThing, Item item, Employee employee, int newQuantity){
+    public long add(Order order, Return returnThing, Item item, Employee employee, int prevQuantity){
         ContentValues vals = new ContentValues();
         if(employee!=null){
             vals.put("EmployeeId", employee.employeeId);
             vals.put("Datetime", Calendar.getInstance().getTime().toString());
             vals.put("ArticleId", item.articleId);
-            vals.put("PrevQuantity", item.quantity);
-            vals.put("NewQuantity", newQuantity);
+            vals.put("PrevQuantity", prevQuantity);
+            vals.put("NewQuantity", item.quantity);
             //update item in main
             long index = writeDb.insert(tableName, null, vals);
         }
@@ -28,8 +28,8 @@ public class UpdatesManager {
                 vals.put("OrderNumber", order.orderNumber);
                 vals.put("Datetime", Calendar.getInstance().getTime().toString());
                 vals.put("ArticleId", items.get(i).articleId);
-                vals.put("PrevQuantity", items.get(i).quantity);
-                vals.put("NewQuantity", newQuantity);
+                vals.put("PrevQuantity", prevQuantity);
+                vals.put("NewQuantity", item.quantity);
             }
         }
         else if(returnThing!=null){
@@ -38,8 +38,8 @@ public class UpdatesManager {
                 vals.put("ReturnId", returnThing.returnId);
                 vals.put("Datetime", Calendar.getInstance().getTime().toString());
                 vals.put("ArticleId", items.get(i).articleId);
-                vals.put("PrevQuantity", items.get(i).quantity);
-                vals.put("NewQuantity", newQuantity);
+                vals.put("PrevQuantity", prevQuantity);
+                vals.put("NewQuantity", item.quantity);
             }
         }
         return writeDb.insert(tableName, null, vals);

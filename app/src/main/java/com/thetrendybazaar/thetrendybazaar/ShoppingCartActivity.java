@@ -1,6 +1,7 @@
 package com.thetrendybazaar.thetrendybazaar;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,11 +24,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
         emptyCartText = findViewById(R.id.empty_cart_text);
 
         cartItemRecyclerView = findViewById(R.id.shopping_cart_recyclerView);
-        CartItemAdapter adapter = new CartItemAdapter(this, emptyCartText);
+        CartItemAdapter adapter = new CartItemAdapter(this, emptyCartText, false);
         cartItemRecyclerView.setAdapter(adapter);
         cartItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         checkoutBtn = findViewById(R.id.check_out_button);
         checkoutBtn.setOnClickListener(e -> {
+            //added
+            ShoppingCart.currentShoppingCartPrice =
+                    DatabaseManager.currentShoppingCarts.select(ShoppingCart.currentShoppingCardId).totalPrice;
             Intent checkoutIntent = new Intent(this, CheckoutActivity.class);
             startActivity(checkoutIntent);
         });

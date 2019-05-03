@@ -18,8 +18,10 @@ public class EmployeeManager {
         vals.put("SupervisorId", employee.supervisorId );
         vals.put("FirstName", employee.firstName);
         vals.put("LastName", employee.lastName);
-
-        return writeDb.insert(tableName, null, vals);
+        vals.put("Password", employee.password);
+        long id = writeDb.insert(tableName, null, vals);
+        employee.employeeId = (int)id;
+        return id;
     }
     public void delete(Employee employee){
         writeDb.delete(tableName, "EmployeeId=" + employee.employeeId, null);
@@ -33,6 +35,7 @@ public class EmployeeManager {
         vals.put("SupervisorId", employee.supervisorId );
         vals.put("FirstName", employee.firstName);
         vals.put("LastName", employee.lastName);
+        vals.put("Password", employee.password);
         writeDb.update(tableName, vals, "EmployeeId=" + employee.employeeId, null);
     }
 
@@ -44,7 +47,7 @@ public class EmployeeManager {
     public Employee select(int employeeId){
         Cursor cursor = readDb.query(tableName, null, "EmployeeId = ?", new String[]{employeeId + ""}, null, null, null, null);
         Employee e = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             e = new Employee(
                     cursor.getInt(0),
@@ -52,7 +55,8 @@ public class EmployeeManager {
                     new Date(cursor.getLong(2)),
                     cursor.getInt(3),
                     cursor.getString(4),
-                    cursor.getString(5)
+                    cursor.getString(5),
+                    cursor.getString(6)
             );
             cursor.close();
         }

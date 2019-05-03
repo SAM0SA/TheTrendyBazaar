@@ -3,7 +3,6 @@ package com.thetrendybazaar.thetrendybazaar;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import java.sql.Date;
 
 public class PaymentInfoManager {
     static SQLiteDatabase readDb, writeDb;
@@ -15,7 +14,7 @@ public class PaymentInfoManager {
         vals.put("Type", paymentInfo.type);
         vals.put("SecurityCode", paymentInfo.securityCode);
         vals.put("ExpiryDate", paymentInfo.expiryDate + "");
-        return writeDb.insert(tableName, null, vals);
+        return writeDb.insertWithOnConflict(tableName, null, vals, SQLiteDatabase.CONFLICT_IGNORE);
     }
     public void delete(PaymentInfo paymentInfo){
         writeDb.delete(tableName, "CardNumber=" + paymentInfo.cardNumber, null);
@@ -35,16 +34,16 @@ public class PaymentInfoManager {
         writeDb = wDb;
     }
 
-    public PaymentInfo select(int cardNumber){
+    public PaymentInfo select(long cardNumber){
         Cursor cursor = readDb.query(tableName, null, "CardNumber = ?", new String[]{cardNumber + ""}, null, null, null, null);
         PaymentInfo p = null;
         if(cursor != null){
             cursor.moveToFirst();
             p = new PaymentInfo(
-                    cursor.getInt(0),
+                    cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getInt(2),
-                    new Date(cursor.getLong(3))
+                    cursor.getString(3)
             );
             cursor.close();
         }

@@ -20,6 +20,8 @@ public class ContainsManager {
         }
         else{
             updateQuantity(itemId, shoppingCartId, q, 1);
+            DatabaseManager.currentShoppingCarts.updateCartOnAdd(itemId, shoppingCartId);
+            return 0;
         }
         DatabaseManager.currentShoppingCarts.updateCartOnAdd(itemId, shoppingCartId);
         long index = writeDb.insert(tableName, null, vals);

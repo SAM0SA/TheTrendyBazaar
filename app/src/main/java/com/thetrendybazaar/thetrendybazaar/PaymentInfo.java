@@ -1,14 +1,12 @@
 package com.thetrendybazaar.thetrendybazaar;
 
-import java.sql.Date;
-
 public class PaymentInfo {
-    Integer cardNumber;
+    Long cardNumber;
     String type;
     Integer securityCode;
-    Date expiryDate;
+    String expiryDate;
 
-    public PaymentInfo(Integer cardNumber, String type, Integer securityCode, Date expiryDate) {
+    public PaymentInfo(Long cardNumber, String type, Integer securityCode, String expiryDate) {
         this.cardNumber = cardNumber;
         this.type = type;
         this.securityCode = securityCode;

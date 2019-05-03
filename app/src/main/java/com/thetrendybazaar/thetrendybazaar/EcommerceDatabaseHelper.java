@@ -33,7 +33,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "( CustomerId INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 "FirstName VARCHAR(20)," +
                 "LastName VARCHAR(20)," +
-                "EmailAddress VARCHAR(50)," +
+                "EmailAddress VARCHAR(50) UNIQUE," +
                 "Password VARCHAR(50)," +
                 "Address VARCHAR(200)," +
                 "PhoneNumber INT )"
@@ -47,7 +47,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 ");");
 
         db.execSQL("CREATE TABLE PaymentInfo (\n" +
-                "\tCardNumber INT NOT NULL,\n" +
+                "\tCardNumber BIGINT NOT NULL,\n" +
                 "\tType VARCHAR(50),\n" +
                 "\tSecurityCode INT,\n" +
                 "\tExpiryDate DATE,\n" +
@@ -55,9 +55,10 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 ");\n");
 
         db.execSQL("CREATE TABLE Orders (\n" +
-                "\tOrderNumber INT PRIMARY KEY,\n" +
+                "\tOrderNumber INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tCartId INT NOT NULL,\n" +
-                "\tCardNumber INT NOT NULL\n" +
+                "\tCardNumber BIGINT NOT NULL,\n" +
+                "\tAddress VARCHAR(100) NOT NULL\n"+
                 ");\n");
 
 
@@ -69,13 +70,13 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "<=0" + "\tTHEN\tRAISE (ABORT, '') END;END;");
 
         db.execSQL("CREATE TABLE Employee (\n" +
-                "\tEmployeeId INT,\n" +
+                "\tEmployeeId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tPosition VARCHAR(100),\n" +
                 "\tDateJoined DATETIME,\n" +
                 "\tSupervisorId INT,\n" +
                 "\tFirstName VARCHAR(20),\n" +
                 "\tLastName VARCHAR(20),\n" +
-                "\tPRIMARY KEY (EmployeeId)\n" +
+                "\tPassword VARCHAR(50)\n" +
                 ");\n");
 
         db.execSQL("CREATE TABLE ShoppingCart (\n" +
@@ -102,16 +103,16 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
                 ");\n");
 
-        db.execSQL("\n" +
-                "CREATE TABLE Shipment (\n" +
-                "\tShipmentId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "\tAddress VARCHAR(100),\n" +
-                "\tShipmentType VARCHAR(250),\n" +
-                "\tShipmentPrice DOUBLE,\n" +
-                "\tOrderNumber INT,\n" +
-                "ShippingService VARCHAR(50),\n" +
-                "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
-                ");\n");
+//        db.execSQL("\n" +
+//                "CREATE TABLE Shipment (\n" +
+//                "\tShipmentId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+//                "\tAddress VARCHAR(100),\n" +
+//                "\tShipmentType VARCHAR(250),\n" +
+//                "\tShipmentPrice DOUBLE,\n" +
+//                "\tOrderNumber INT,\n" +
+//                "ShippingService VARCHAR(50),\n" +
+//                "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
+//                ");\n");
 
         db.execSQL("CREATE TABLE Item(\n" +
                 "\tArticleId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
@@ -161,7 +162,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE Adds (\n" +
                 "\tCustomerId INT,\n" +
-                "\tCardNumber INT,\n" +
+                "\tCardNumber BIGINT,\n" +
                 "\tPRIMARY KEY (CustomerId, CardNumber),\n" +
                 "\tFOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),\n" +
                 "\tFOREIGN KEY (CardNumber) REFERENCES PaymentInfo(CardNumber)\n" +
@@ -200,10 +201,11 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
                 ");\n");
 
-        db.execSQL("CREATE TABLE SentFor (\n" +
+        db.execSQL("CREATE TABLE SentForShipment (\n" +
+                "\tShipmentId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tOrderNumber INT,\n" +
                 "\tDateShipped INT,\n" +
-                "\tPRIMARY KEY (OrderNumber, DateShipped),\n" +
+                "\tAddress String,\n" +
                 "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
                 ");\n");
 

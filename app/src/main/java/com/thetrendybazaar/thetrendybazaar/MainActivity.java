@@ -56,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        Database
         DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
+        //DatabaseManager.currentShoppingCarts.se
 //       this.deleteDatabase("Ecommerce");
-        //DatabaseManager.setDb();
+//        DatabaseManager.setDb();
 
 //        for(int i = 0; i < 15; i++){
 //            Customer customer = new Customer(null, "name"+i, "lastName"+i,
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //                    "This is a detailed review of some random product");
 //            DatabaseManager.reviews.add(review);
 //            List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
-//            DatabaseManager.writes.add(customer,reviews.get(0));
+//            DatabaseManager.writes.add(customer.id,reviews.get(0));
 //        }
 
 //        Text Views
@@ -137,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
     private void goToLoginActivity() {
         Intent loginIntent = new Intent(MainActivity.this, StoreActivity.class);
         // DELETE LATER
-        loginIntent.putExtra("name", "Bob");
+        //loginIntent.putExtra("id", 1);
+        Customer.currentCustomerId = 1;
         startActivity(loginIntent);
     }
 
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent storeIntent = new Intent(MainActivity.this, StoreActivity.class);
-        storeIntent.putExtra("name", customer.firstName );
+        storeIntent.putExtra("id", customer.id );
         startActivity(storeIntent);
     }
 

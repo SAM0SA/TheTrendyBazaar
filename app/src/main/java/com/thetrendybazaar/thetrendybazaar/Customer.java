@@ -14,7 +14,7 @@ public class Customer {
     String address;
     String phone;
     String password;
-
+    static int currentCustomerId = -1;
 
 
     public Customer(Integer id, String firstName, String lastName, String email, String password, String address, String phone) {

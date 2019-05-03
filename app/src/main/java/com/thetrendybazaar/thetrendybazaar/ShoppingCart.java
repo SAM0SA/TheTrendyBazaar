@@ -5,6 +5,7 @@ public class ShoppingCart {
     Double totalPrice;
     Integer itemQuantity;
     Integer customerId;
+    static int currentShoppingCardId = -1;
 
     public ShoppingCart(Integer cartId, Double totalPrice, Integer itemQuantity, Integer customerId) {
         this.cartId = cartId;
@@ -23,8 +24,8 @@ public class ShoppingCart {
                 '}';
     }
 
-    public void updatePrice(Item item){
-        totalPrice += item.price;
+    public void updatePrice(double priceChange){
+        totalPrice += priceChange;
     }
 
     public void updateQuantity(int quantityToAdd){

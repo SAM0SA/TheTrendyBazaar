@@ -45,16 +45,31 @@ public class StoreActivity extends AppCompatActivity {
                 R.string.drawer_open,R.string.drawer_close );
         toggle.syncState();
 
+//        Intent intent = getIntent();
+        Customer customer = DatabaseManager.customers.select(
+                Customer.currentCustomerId);
+
+        ShoppingCart shoppingCart = DatabaseManager.currentShoppingCarts
+                .selectByCustomer(customer.id);
+        if(shoppingCart == null){
+            shoppingCart = DatabaseManager.currentShoppingCarts.generateNewCart(customer.id);
+        }
+        ShoppingCart.currentShoppingCardId = shoppingCart.cartId;
+
         mNavigationView = findViewById(R.id.nav_view);
         accountItem = mNavigationView.getMenu().findItem(R.id.drawer_my_account);
-        Intent intent = getIntent();
-        accountItem.setTitle(intent.getStringExtra("name"));
+
+        accountItem.setTitle(customer.firstName);
 
         recyclerView = findViewById(R.id.items_recycler);
         items = DatabaseManager.items.getItems();
         itemAdapter = new ItemAdapter(this, items);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
 
     }
 

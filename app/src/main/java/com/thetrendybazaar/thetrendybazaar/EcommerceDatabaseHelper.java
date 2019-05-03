@@ -236,15 +236,16 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tCartId INT,\n" +
                 "\tOrderDate DATETIME,\n" +
                 "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber),\n" +
-                "\tFOREIGN KEY (CartId) REFERENCES ShoppingCart (CartId)\n" +
+                "\tFOREIGN KEY (CartId) REFERENCES CurrentShoppingCart (CartId)\n" +
                 ");\n");
 
         db.execSQL("\n" +
                 "CREATE TABLE Contains (\n" +
                 "\tCartId INT,\n" +
                 "\tArticleId INT,\n" +
+                "\tQuantity INT,\n" +
                 "\tPRIMARY KEY (CartId,ArticleId),\n" +
-                "\tFOREIGN KEY (CartId) REFERENCES ShoppingCart (CartId),\n" +
+                "\tFOREIGN KEY (CartId) REFERENCES CurrentShoppingCart (CartId),\n" +
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
                 ");\n");
 

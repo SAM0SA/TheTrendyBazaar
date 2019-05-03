@@ -1,21 +1,21 @@
 package com.thetrendybazaar.thetrendybazaar;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemActivity extends AppCompatActivity {
@@ -34,6 +34,7 @@ public class ItemActivity extends AppCompatActivity {
 
 //    Buttons
     Button reviewSubmitBtn;
+    Button addToCartBtn;
 
 //    EditTexts
     EditText detailedReviewBody;
@@ -42,6 +43,12 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
+
+        Toolbar toolbar = findViewById(R.id.item_activity_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         ViewPager viewPager = findViewById(R.id.item_view_pager);
         ImageAdapter imageAdapter = new ImageAdapter(this);
@@ -91,7 +98,38 @@ public class ItemActivity extends AppCompatActivity {
             itemReviewCount.setText("(" + DatabaseManager.reviews.getReviewCount(id) + ")");
         });
 
+        addToCartBtn = findViewById(R.id.add_to_cart_btn);
+        addToCartBtn.setOnClickListener(e -> {
+            DatabaseManager.contains.add(currentItem.articleId, ShoppingCart.currentShoppingCardId);
+        });
 
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+
+            case R.id.action_cart:
+                goToCartActivity();
+                return true;
+
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void goToCartActivity() {
+        Intent cartIntent = new Intent(this, ShoppingCartActivity.class);
+        startActivity(cartIntent);
     }
 }

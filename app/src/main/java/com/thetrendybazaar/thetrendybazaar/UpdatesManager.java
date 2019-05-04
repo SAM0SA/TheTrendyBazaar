@@ -20,7 +20,6 @@ public class UpdatesManager {
             vals.put("PrevQuantity", prevQuantity);
             vals.put("NewQuantity", item.quantity);
             //update item in main
-            long index = writeDb.insert(tableName, null, vals);
         }
         else if(order!=null){
             ArrayList<Item> items = DatabaseManager.orders.getItemsForOrder(order.orderNumber);

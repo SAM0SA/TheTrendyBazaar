@@ -7,18 +7,34 @@
     tools:context=".DashboardActivity"
     android:orientation="vertical">
 
-        <Button
-            android:id="@+id/dashboardItemsBtn"
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black"
-            android:text="VIEW ITEMS"
-            android:textAlignment="textStart"
-            android:paddingStart="10dp"
-
-            android:textColor="@android:color/white">
-
-        </Button>
+            android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/dashboardItemsBtn"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:text="VIEW ITEMS"
+                    android:textAlignment="textStart"
+                    android:paddingStart="10dp"
+                    android:textColor="@android:color/white">
+                </Button>
+                <Button
+                    android:id="@+id/dashboardManuBtn"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:text="VIEW MANUFACTURERS"
+                    android:textAlignment="textEnd"
+                    android:paddingEnd="10dp"
+                    android:textColor="@android:color/white">
+                </Button>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

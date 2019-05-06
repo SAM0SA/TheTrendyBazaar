@@ -11,10 +11,10 @@ public class GeneratedFromManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "GeneratedFrom";
 
-    public long add(Order order, ShoppingCart shoppingCart){
+    public long add(int orderNumber, int cartId){
         ContentValues vals = new ContentValues();
-        vals.put("OrderNumber", order.orderNumber);
-        vals.put("CartId", shoppingCart.cartId);
+        vals.put("OrderNumber", orderNumber);
+        vals.put("CartId", cartId);
         vals.put("OrderDate", Calendar.getInstance().getTime().toString());
         return writeDb.insert(tableName, null, vals);
     }

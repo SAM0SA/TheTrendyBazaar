@@ -39,7 +39,7 @@ public class ShoppingCartManager {
     public ShoppingCart select(int cartId){
         Cursor cursor = readDb.query(tableName, null, "CartId = ?", new String[]{cartId + ""}, null, null, null, null);
         ShoppingCart s = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             s = new ShoppingCart(
                     cursor.getInt(0),

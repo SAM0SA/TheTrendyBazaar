@@ -20,7 +20,8 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
         loginBtn = findViewById(R.id.login_btn);
-
+        loginPassword.setText("password");
+        loginEmail.setText("0@g.com");
 
 
         loginBtn.setOnClickListener(e -> {

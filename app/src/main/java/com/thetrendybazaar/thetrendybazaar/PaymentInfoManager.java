@@ -37,7 +37,7 @@ public class PaymentInfoManager {
     public PaymentInfo select(long cardNumber){
         Cursor cursor = readDb.query(tableName, null, "CardNumber = ?", new String[]{cardNumber + ""}, null, null, null, null);
         PaymentInfo p = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             p = new PaymentInfo(
                     cursor.getLong(0),

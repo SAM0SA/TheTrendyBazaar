@@ -25,7 +25,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
     CartItemAdapter(Context context, TextView emptyCartText, boolean isDashboard){
         inflater = LayoutInflater.from(context);
         if(isDashboard){
-            items = DatabaseManager.items.getItems();
+            items = DatabaseManager.items.getItems(0);
         }else{
             items = DatabaseManager.contains
                     .getItemsForShoppingCart(ShoppingCart.currentShoppingCardId);
@@ -48,6 +48,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
         Item item = items.get(position);
         holder.itemName.setText(item.name);
         holder.itemPrice.setText("$"+item.price);
+        holder.itemPicture.setImageResource(ImageAdapter.getImageResources(item.articleId)[0]);
         if(isDashboard){
             holder.quantity.setVisibility(View.VISIBLE);
             holder.updateBtn.setVisibility(View.VISIBLE);
@@ -66,6 +67,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
             holder.itemCross.setOnClickListener(e -> {
                 items.remove(item);
                 DatabaseManager.items.delete(item);
+                DatabaseManager.supplies.delete(item);
                 this.notifyDataSetChanged();
                 //if(items.size() == 0) emptyCartText.setVisibility(View.VISIBLE);
             });

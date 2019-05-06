@@ -39,12 +39,12 @@ public class CheckoutActivity extends AppCompatActivity {
         expiration = findViewById(R.id.check_out_card_exp_date);
         cvc = findViewById(R.id.check_out_card_cvc);
 
-        firstName.setText("Kavan");
-        lastName.setText("Wadhwa");
+        firstName.setText("name0");
+        lastName.setText("lastName0");
         shippingAddress.setText("19 Williams Ave Sysosset NY 11791");
         phoneNumber.setText("5163485942");
         billingAddress.setText("19 Williams Ave Sysosset NY 11791");
-        cardNumber.setText("123456789012345");
+        cardNumber.setText("1234567890123450");
         expiration.setText("01/20");
         cvc.setText("123");
 

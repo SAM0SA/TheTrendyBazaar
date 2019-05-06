@@ -20,7 +20,9 @@ public class PlacesManager {
         vals.put("OrderNumber", orderNumber);
         vals.put("Date", Calendar.getInstance().getTime().toString());
         long index = writeDb.insert(tableName, null, vals);
-        adjustForOrder(DatabaseManager.orders.select(orderNumber));
+        Order currOrder = DatabaseManager.orders.select(orderNumber);
+        adjustForOrder(currOrder);
+        DatabaseManager.generatedFrom.add(orderNumber, currOrder.cartId);
         return index;
     }
 
@@ -46,16 +48,18 @@ public class PlacesManager {
         ArrayList<Item> itemsInOrder = DatabaseManager.contains.getItemsForShoppingCart(cart.cartId);
         for(int j = 0; j<itemsInOrder.size(); j++){
             Item i = itemsInOrder.get(j);
-            i.quantity = i.quantity - 1;
+            int cartQuantity = DatabaseManager.contains.getQuantityInCart(cart.cartId, i.articleId);
+            int prev = i.quantity + cartQuantity;
+            i.quantity = i.quantity;
             DatabaseManager.items.update(i);
-            DatabaseManager.updates.add(order, null, i, null, i.quantity);
+            DatabaseManager.updates.add(order, 0, i, null, prev);
         }
     }
     public ArrayList<Order> getOrdersMadeByCustomer(Customer customer){
         Cursor cursor = readDb.query(tableName, null, "CustomerId = ?", new String[]{customer.id + ""}, null, null, null, null);
         ArrayList<Order> ordersMade = new ArrayList<>();
         Order o;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 o = DatabaseManager.orders.select(cursor.getInt(1));

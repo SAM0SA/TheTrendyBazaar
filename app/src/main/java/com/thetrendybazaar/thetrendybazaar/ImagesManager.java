@@ -28,7 +28,7 @@ public class ImagesManager {
     public ArrayList<String> getImages(int articleId){
         Cursor cursor = readDb.query(tableName, null, "ArticleId = ?", new String[] {articleId + ""}, null, null, null, null);
         ArrayList<String> images = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 images.add(cursor.getString(1));

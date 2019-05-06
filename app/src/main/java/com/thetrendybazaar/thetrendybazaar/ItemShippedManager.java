@@ -6,21 +6,21 @@ public class ItemShippedManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "ItemShipped";
 
-    public long add(Item item, Shipment shipment){
+    public long add(int articleId, int shipmentId){
         ContentValues vals = new ContentValues();
-        vals.put("ShipmentId", shipment.shipmentId);
-        vals.put("ArticleId", item.articleId);
+        vals.put("ShipmentId", shipmentId);
+        vals.put("ArticleId", articleId);
         return writeDb.insert(tableName, null, vals);
     }
-    public void delete(Item item, Shipment shipment){
-        writeDb.delete(tableName, "ArticleId= ? AND ShipmentId= ?", new String[] {item.articleId + "", shipment.shipmentId + ""});
+    public void delete(int articleId, int shipmentId){
+        writeDb.delete(tableName, "ArticleId= ? AND ShipmentId= ?", new String[] {articleId + "", shipmentId + ""});
     }
 
-    public void update(Item item, Shipment shipment){
+    public void update(Item item, int shipmentId){
         ContentValues vals = new ContentValues();
-        vals.put("ShipmentId", shipment.shipmentId);
+        vals.put("ShipmentId", shipmentId);
         vals.put("ArticleId", item.articleId);
-        writeDb.update(tableName, vals, "ArticleId= ? AND ShipmentId= ?", new String[] {item.articleId + "", shipment.shipmentId + ""});
+        writeDb.update(tableName, vals, "ArticleId= ? AND ShipmentId= ?", new String[] {item.articleId + "", shipmentId + ""});
     }
 
     public static void setDb(SQLiteDatabase rDb, SQLiteDatabase wDb){

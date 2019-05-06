@@ -60,13 +60,21 @@ public class MainActivity extends AppCompatActivity {
         DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
         //DatabaseManager.currentShoppingCarts.se
 //       this.deleteDatabase("Ecommerce");
-//        DatabaseManager.setDb();
-
+//        String[] names = new String[]{"Nike", "Supreme", "Adidas", "Aeropostale", "American Eagle"};
+//        String[] addresses = new String[] {"New York", "Texas", "California", "New Jersey", "Floria"};
+//
+//        for(int i =0; i <5;i++){
+//            //add manufacturers
+//            Manufacturer manufacturer = new Manufacturer(null,
+//                    names[i%5], addresses[i%5], null, null);
+//            DatabaseManager.manufacturers.add(manufacturer);
+//        }
+//
 //        for(int i = 0; i < 15; i++){
 //            Customer customer = new Customer(null, "name"+i, "lastName"+i,
 //                    i +"@g.com", "password", null, null);
 //            DatabaseManager.customers.addCustomer(customer);
-//            Item item = new Item(null, 12, 10,12.50,
+//            Item item = new Item(null, i%5 + 1, 10,12.50,
 //                    "This is an item description", "Clothing", "Supreme Tee " + i);
 //            DatabaseManager.items.add(item);
 //            Review review = new Review(null,item.articleId,3,
@@ -74,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
 //            DatabaseManager.reviews.add(review);
 //            List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
 //            DatabaseManager.writes.add(customer.id,reviews.get(0));
+//
+//
+//
+//            //add to supplies table
+//            DatabaseManager.supplies.add(item, i%5+1, (i*25.5 + 7)%50);
+//
 //        }
 //
 //        DatabaseManager.employees.add(new Employee(null, "Worker",

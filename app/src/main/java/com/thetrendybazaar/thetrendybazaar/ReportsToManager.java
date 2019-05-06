@@ -29,7 +29,7 @@ public class ReportsToManager {
         Cursor cursor = readDb.query(tableName, null, "SupervisorId = ?", new String[]{employee.employeeId + ""}, null, null, null, null);
         ArrayList<Employee> subordinates = new ArrayList<>();
         Employee e;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 e = DatabaseManager.employees.select(cursor.getInt(1));

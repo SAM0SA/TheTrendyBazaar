@@ -24,7 +24,7 @@ public class WritesManager {
 
     public String getDateOfReview(Review review){
         Cursor cursor = readDb.query(tableName, null, "ReviewId = ?", new String[]{review.id + ""}, null, null, null, null);
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
         }
         return cursor.getString(2);
@@ -45,7 +45,7 @@ public class WritesManager {
         Cursor cursor = readDb.query(tableName, null, "CustomerId = ?", new String[]{customer.id + ""}, null, null, null, null);
         ArrayList<Review> reviewsWritten = new ArrayList<>();
         Review r;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 r = DatabaseManager.reviews.select(cursor.getInt(1));

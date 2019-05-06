@@ -12,7 +12,7 @@ import java.util.List;
 public class ItemDashboardActivity extends AppCompatActivity {
 
     RecyclerView dashBoardItemRecycler;
-    Button logoutBtn, ordersBtn;
+    Button logoutBtn, ordersBtn, manuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class ItemDashboardActivity extends AppCompatActivity {
         dashBoardItemRecycler = findViewById(R.id.itemsRecycler);
         logoutBtn = findViewById(R.id.items_logout);
         ordersBtn = findViewById(R.id.dashboardOrdersBtn);
+        manuBtn = findViewById(R.id.dashboardItemManuBtn);
 
         //List<Item> items = DatabaseManager.items.getItems();
         CartItemAdapter adapter = new CartItemAdapter(this, null , true);
@@ -35,7 +36,13 @@ public class ItemDashboardActivity extends AppCompatActivity {
         });
 
         ordersBtn.setOnClickListener(e -> {
-            onBackPressed();
+            Intent intent2 = new Intent(this, DashboardActivity.class);
+            startActivity(intent2);
+        });
+
+        manuBtn.setOnClickListener(e -> {
+            Intent intent = new Intent(this, ManufacturersActivity.class);
+            startActivity(intent);
         });
 
 

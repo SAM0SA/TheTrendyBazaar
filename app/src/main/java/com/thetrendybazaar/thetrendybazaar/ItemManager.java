@@ -29,13 +29,20 @@ public class ItemManager {
 
     public void update(Item item){
         ContentValues vals = new ContentValues();
-        vals.put("ArticleId", item.articleId);
-        vals.put("ManufacturerId", item.manufacturerId);
-        vals.put("Quantity", item.quantity);
-        vals.put("Price", item.price);
-        vals.put("Description", item.description);
-        vals.put("Category", item.category);
-        vals.put("ItemName", item.name);
+        if(item.articleId!=null)
+            vals.put("ArticleId", item.articleId);
+        if(item.manufacturerId!=null)
+            vals.put("ManufacturerId", item.manufacturerId);
+        if(item.quantity!=null)
+            vals.put("Quantity", item.quantity);
+        if(item.price!=null)
+            vals.put("Price", item.price);
+        if(item.description!=null)
+            vals.put("Description", item.description);
+        if(item.category!=null)
+            vals.put("Category", item.category);
+        if(item.name!=null)
+            vals.put("ItemName", item.name);
         writeDb.update(tableName, vals, "ArticleId=" + item.articleId, null);
     }
 
@@ -45,8 +52,17 @@ public class ItemManager {
     }
 
 
-    public ArrayList<Item> getItems(){
-        Cursor cursor = readDb.query(tableName, null, null, null, null, null, null, null);
+    public ArrayList<Item> getItems(int ordered){
+        Cursor cursor = null;
+        if(ordered==0) {
+            cursor = readDb.query(tableName, null, null, null, null, null, null, null);
+        }
+        else if(ordered==1){
+            cursor = readDb.query(tableName, null, null, null, null, null, "Price ASC", null);
+        }
+        else if(ordered==2){
+            cursor = readDb.query(tableName, null, null, null, null, null, "Price DESC", null);
+        }
         ArrayList<Item> items = new ArrayList<>();
         Item i;
         if(cursor != null && cursor.getCount() > 0){
@@ -67,8 +83,18 @@ public class ItemManager {
         }
         return items;
     }
-    public ArrayList<Item> getItemsByCategory(String category){
-        Cursor cursor = readDb.query(tableName, null, "Category = ?", new String[] {category + ""}, null, null, null, null);
+
+    public ArrayList<Item> getItemsByCategory(String category, int ordered){
+        Cursor cursor = null;
+        if(ordered==0) {
+            cursor = readDb.query(tableName, null, "Category = ?" , new String[]{category + ""}, null, null, null, null);
+        }
+        else if(ordered==1){
+            cursor = readDb.query(tableName, null, "Category = ?" , new String[]{category + ""}, null, null, "Price ASC", null);
+        }
+        else if(ordered==2){
+            cursor = readDb.query(tableName, null, "Category = ?" , new String[]{category + ""}, null, null, "Price DESC", null);
+        }
         ArrayList<Item> categoryItems = new ArrayList<>();
         if(cursor != null && cursor.getCount() > 0){
             Item i;

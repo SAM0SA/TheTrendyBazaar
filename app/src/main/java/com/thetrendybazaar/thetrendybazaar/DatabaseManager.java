@@ -12,8 +12,6 @@ public class DatabaseManager {
     static final PaymentInfoManager paymentInfos = new PaymentInfoManager();
     static final ShoppingCartManager shoppingCarts = new ShoppingCartManager();
     static final CurrentShoppingCartManager currentShoppingCarts = new CurrentShoppingCartManager();
-    static final ReturnManager returns = new ReturnManager();
-    static final ShipmentManager shipments = new ShipmentManager();
     static final ReviewManager reviews = new ReviewManager();
     static final WritesManager writes = new WritesManager();
     static final AddsManager adds = new AddsManager();
@@ -26,6 +24,7 @@ public class DatabaseManager {
     static final ContainsManager contains = new ContainsManager();
     static final GeneratedFromManager generatedFrom = new GeneratedFromManager();
     static final TagsManager tags = new TagsManager();
+    static final ItemShippedManager itemsShipped = new ItemShippedManager();
 
 
     public static void setDb(SQLiteDatabase read, SQLiteDatabase write){
@@ -36,8 +35,6 @@ public class DatabaseManager {
         items.setDb(read, write);
         paymentInfos.setDb(read, write);
         shoppingCarts.setDb(read, write);
-        returns.setDb(read, write);
-        shipments.setDb(read, write);
         reviews.setDb(read, write);
         writes.setDb(read, write);
         adds.setDb(read, write);
@@ -51,5 +48,6 @@ public class DatabaseManager {
         generatedFrom.setDb(read, write);
         currentShoppingCarts.setDb(read, write);
         tags.setDb(read, write);
+        itemsShipped.setDb(read, write);
     }
 }

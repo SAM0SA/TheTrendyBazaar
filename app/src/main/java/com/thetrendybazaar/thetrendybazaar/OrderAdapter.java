@@ -1,6 +1,7 @@
 package com.thetrendybazaar.thetrendybazaar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +16,28 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
+    public final static int ORDERS = 0;
+    public final static int MANU = 1;
+
     LayoutInflater inflater;
     List<Order> orders;
+    List<Manufacturer> manufacturers;
+    List<Item> items;
+    int type;
+    Context context;
 
-    OrderAdapter(Context context ){
+    OrderAdapter(Context context, int type){
+        this.context = context;
         inflater = LayoutInflater.from(context);
-        orders = DatabaseManager.orders.getOrders();
-        Log.d("EFE","SFE");
+        this.type = type;
+        switch (type){
+            case ORDERS:
+                orders = DatabaseManager.orders.getOrders();
+                break;
+            case MANU:
+                manufacturers = DatabaseManager.manufacturers.getAllManufacturers();
+                break;
+        }
     }
 
     @NonNull
@@ -34,29 +50,53 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orders.get(position);
-        holder.orderNum.setText("ORDER NUMBER : " + order.orderNumber);
-        holder.customerId.setText("CUSTOMER ID : " + DatabaseManager
-                .places.getCustomerId(order.orderNumber));
-        int shipped = DatabaseManager.sentFor.checkShipped(order.orderNumber);
-        if(shipped == 1){
-            holder.shipBtn.setEnabled(false);
-            holder.shipBtn.setText("SHIPPED");
-            holder.shipBtn.setBackgroundColor(Color.parseColor("#61C23F"));
+
+        switch (type){
+            case ORDERS:
+                Order order = orders.get(position);
+                holder.orderNum.setText("ORDER NUMBER : " + order.orderNumber);
+                holder.customerId.setText("CUSTOMER ID : " + DatabaseManager
+                        .places.getCustomerId(order.orderNumber));
+                int shipped = DatabaseManager.sentFor.checkShipped(order.orderNumber);
+                if(shipped == 1){
+                    holder.shipBtn.setEnabled(false);
+                    holder.shipBtn.setText("SHIPPED");
+                    holder.shipBtn.setBackgroundColor(Color.parseColor("#61C23F"));
+                }
+
+                holder.shipBtn.setOnClickListener(e -> {
+                    DatabaseManager.sentFor.add(order, order.address);
+                    holder.shipBtn.setEnabled(false);
+                    holder.shipBtn.setText("SHIPPED");
+                    holder.shipBtn.setBackgroundColor(Color.parseColor("#61C23F"));
+                });
+                break;
+
+            case MANU:
+                Manufacturer manufacturer = manufacturers.get(position);
+                holder.orderNum.setText(manufacturer.name);
+                holder.customerId.setText("");
+                holder.shipBtn.setText("View Items");
+                holder.shipBtn.setOnClickListener(e -> {
+                    Intent manuItemsIntent = new Intent(context, ManuItemsActivity.class);
+                    manuItemsIntent.putExtra("manuId", manufacturer.manufacturerId);
+                    context.startActivity(manuItemsIntent);
+                });
+                break;
         }
 
-        holder.shipBtn.setOnClickListener(e -> {
-            DatabaseManager.sentFor.add(order, order.address);
-            holder.shipBtn.setEnabled(false);
-            holder.shipBtn.setText("SHIPPED");
-            holder.shipBtn.setBackgroundColor(Color.parseColor("#61C23F"));
-        });
 
     }
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        switch (type){
+            case MANU:
+                return manufacturers.size();
+            default:
+                return orders.size();
+
+        }
     }
 }
 

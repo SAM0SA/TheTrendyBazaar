@@ -11,9 +11,9 @@ public class SuppliesManager {
     static SQLiteDatabase readDb, writeDb;
     static String tableName = "Supplies";
 
-    public long add(Item item, Manufacturer manufacturer, double supplierPrice){
+    public long add(Item item, int manufacturerId, double supplierPrice){
         ContentValues vals = new ContentValues();
-        vals.put("ManufacturerId", manufacturer.manufacturerId);
+        vals.put("ManufacturerId", manufacturerId);
         vals.put("ArticleId", item.articleId);
         vals.put("SupplierPrice", supplierPrice);
         return writeDb.insert(tableName, null, vals);
@@ -43,7 +43,7 @@ public class SuppliesManager {
     public ArrayList<Item> getItemsManufacturedBy(int manufacturerId){
         Cursor cursor = readDb.query(tableName, null, "ManufacturerId = ?", new String[] {manufacturerId + ""}, null, null, null, null);
         ArrayList<Item> itemsMan = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             Item i;
             cursor.moveToFirst();
             do{

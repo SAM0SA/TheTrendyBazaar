@@ -44,7 +44,7 @@ public class ManufacturerManager {
     public ArrayList<Manufacturer> getAllManufacturers(){
         Cursor cursor = writeDb.rawQuery("SELECT * FROM " + tableName, null);
         ArrayList<Manufacturer> allManufacturers = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             Manufacturer m;
             cursor.moveToFirst();
             do{
@@ -59,7 +59,7 @@ public class ManufacturerManager {
     public Manufacturer select(int manufacturerId){
         Cursor cursor = readDb.query(tableName, null, "ManufacturerId = ?", new String[]{manufacturerId + ""}, null, null, null, null);
         Manufacturer m = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             m = new Manufacturer(
                     cursor.getInt(0),

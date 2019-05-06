@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Date;
+import java.util.List;
 
 public class CurrentShoppingCartManager {
     static SQLiteDatabase readDb, writeDb;
@@ -24,6 +25,13 @@ public class CurrentShoppingCartManager {
         DatabaseManager.orders.add(newOrder);
         int customerId = this.getCustomerId(shoppingCartId);
         DatabaseManager.places.add(customerId,newOrder.orderNumber);
+        //add to updates table
+//        List<Item> itemsInOrder = DatabaseManager.contains.getItemsForShoppingCart(shoppingCartId);
+//        for(int i = 0; i<itemsInOrder.size(); i++){
+//            Item currItem = itemsInOrder.get(i);
+//            DatabaseManager.updates.add(newOrder, null, currItem, null,
+//                    currItem.quantity+DatabaseManager.contains.getQuantityInCart(shoppingCartId, currItem.articleId));
+//        }
         this.generateNewCart(customerId);
         writeDb.delete(tableName, "CartId=" + shoppingCartId, null);
     }

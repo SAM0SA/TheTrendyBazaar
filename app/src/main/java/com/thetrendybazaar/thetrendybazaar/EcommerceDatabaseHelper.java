@@ -95,13 +95,13 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)\n" +
                 ");\n");
 
-        db.execSQL("CREATE TABLE Return (\n" +
-                "\tReturnId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "\tItemQuantityReturned INT DEFAULT 1,\n" +
-                "\tOrderNumber INT,\n" +
-                "\tReturnReason VARCHAR(100),\n" +
-                "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
-                ");\n");
+//        db.execSQL("CREATE TABLE Return (\n" +
+//                "\tReturnId INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+//                "\tItemQuantityReturned INT DEFAULT 1,\n" +
+//                "\tOrderNumber INT,\n" +
+//                "\tReturnReason VARCHAR(100),\n" +
+//                "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber)\n" +
+//                ");\n");
 
 //        db.execSQL("\n" +
 //                "CREATE TABLE Shipment (\n" +
@@ -142,13 +142,13 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
                 ");\n");
 
-        db.execSQL("CREATE TABLE ItemReturned (\n" +
-                "\tReturnId INT,\n" +
-                "\tArticleId INT, \n" +
-                "\tPRIMARY KEY (ReturnId, ArticleId),\n" +
-                "\tFOREIGN KEY (ReturnId) REFERENCES Return(ReturnId),\n" +
-                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
-                ");\n");
+//        db.execSQL("CREATE TABLE ItemReturned (\n" +
+//                "\tReturnId INT,\n" +
+//                "\tArticleId INT, \n" +
+//                "\tPRIMARY KEY (ReturnId, ArticleId),\n" +
+//                "\tFOREIGN KEY (ReturnId) REFERENCES Return(ReturnId),\n" +
+//                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
+//                ");\n");
 
         db.execSQL("CREATE TABLE Writes (\n" +
                 "\tCustomerId INT NOT NULL,\n" +
@@ -229,7 +229,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tPRIMARY KEY (ArticleId,Datetime),\n" +
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item(ArticleId),\n" +
                 "\tFOREIGN KEY (OrderNumber) REFERENCES Orders(OrderNumber),\n" +
-                "FOREIGN KEY (ReturnId) REFERENCES Return (ReturnId),\n" +
+                //"FOREIGN KEY (ReturnId) REFERENCES Return (ReturnId),\n" +
                 "FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId)\n" +
                 ");\n");
 

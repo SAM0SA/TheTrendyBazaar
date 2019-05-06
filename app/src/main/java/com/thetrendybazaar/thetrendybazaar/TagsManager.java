@@ -29,7 +29,7 @@ public class TagsManager {
     public ArrayList<Item> selectItemsByTag(String tag) {
         Cursor cursor = readDb.query(tableName, null, "Tag = ?", new String[] {tag + ""}, null, null, null, null);
         ArrayList<Item> tagItems = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             Item i;
             cursor.moveToFirst();
             do{
@@ -44,7 +44,7 @@ public class TagsManager {
     public ArrayList<Item> selectItemsByGroupNumber(int groupNumber){
         Cursor cursor = readDb.query(tableName, null, "GroupNumber = ?", new String[] {groupNumber + ""}, null, null, null, null);
         ArrayList<Item> groupItems = new ArrayList<>();
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             Item i;
             cursor.moveToFirst();
             do{

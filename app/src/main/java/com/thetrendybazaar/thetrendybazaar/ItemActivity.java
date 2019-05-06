@@ -51,13 +51,14 @@ public class ItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        ViewPager viewPager = findViewById(R.id.item_view_pager);
-        ImageAdapter imageAdapter = new ImageAdapter(this);
-        viewPager.setAdapter(imageAdapter);
-
         Intent intent = getIntent();
         int id = intent.getIntExtra("articleId", -1);
+
+        ViewPager viewPager = findViewById(R.id.item_view_pager);
+        ImageAdapter imageAdapter = new ImageAdapter(this, id);
+        viewPager.setAdapter(imageAdapter);
+
+
 
         reviewsRecyclerView = findViewById(R.id.reviews_recycler);
         List<Review> reviews = DatabaseManager.reviews.getReviews(id);

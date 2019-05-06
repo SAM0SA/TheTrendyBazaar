@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class SentForShipmentManager {
@@ -15,7 +16,13 @@ public class SentForShipmentManager {
         vals.put("OrderNumber", order.orderNumber);
         vals.put("DateShipped", Calendar.getInstance().getTime().toString());
         vals.put("Address", shippingAddress);
-        return writeDb.insert(tableName, null, vals);
+        long id = writeDb.insert(tableName, null, vals);
+        ArrayList<Item> itemsShipped = DatabaseManager.orders.getItemsForOrder(order.orderNumber);
+        for(int i = 0; i<itemsShipped.size(); i++){
+            Item currItem = itemsShipped.get(i);
+            DatabaseManager.itemsShipped.add(currItem.articleId, (int)id);
+        }
+        return id;
     }
     public void delete(int shipmentId){
         writeDb.delete(tableName, "ShipmentId = ?", new String[] {shipmentId + ""});

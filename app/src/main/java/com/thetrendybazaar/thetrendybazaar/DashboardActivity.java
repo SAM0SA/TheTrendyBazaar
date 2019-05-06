@@ -10,7 +10,7 @@ import android.widget.Button;
 public class DashboardActivity extends AppCompatActivity {
 
     RecyclerView ordersRecycler;
-    Button logoutBtn, itemsBtn;
+    Button logoutBtn, itemsBtn, manuBtn;
 
 
     @Override
@@ -19,12 +19,18 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         ordersRecycler = findViewById(R.id.ordersRecycler);
-        OrderAdapter adapter = new OrderAdapter(this);
+        OrderAdapter adapter = new OrderAdapter(this, OrderAdapter.ORDERS);
         ordersRecycler.setAdapter(adapter);
         ordersRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         logoutBtn = findViewById(R.id.order_logout);
         itemsBtn = findViewById(R.id.dashboardItemsBtn);
+        manuBtn = findViewById(R.id.dashboardManuBtn);
+
+        manuBtn.setOnClickListener(e -> {
+            Intent manuIntent = new Intent(this, ManufacturersActivity.class);
+            startActivity(manuIntent);
+        });
 
         logoutBtn.setOnClickListener(e -> {
             Intent intent = new Intent(this, MainActivity.class);

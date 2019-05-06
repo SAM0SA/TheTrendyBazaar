@@ -46,7 +46,7 @@ public class CustomerManager {
     public Customer select(int customerId){
         Cursor cursor = readDb.query(tableName, null, "CustomerId = ?", new String[]{customerId + ""}, null, null, null, null);
         Customer c = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             c = new Customer(
                     Integer.parseInt(cursor.getString(0)),

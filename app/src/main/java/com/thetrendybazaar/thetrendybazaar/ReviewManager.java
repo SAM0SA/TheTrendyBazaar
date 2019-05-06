@@ -35,7 +35,7 @@ public class ReviewManager {
         Cursor cursor = readDb.query(tableName, null, "ArticleId = ?", new String[] {articleId + ""}, null, null, null, null);
         ArrayList<Review> reviews = new ArrayList<>();
         Review r;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
                 r = new Review(
@@ -66,7 +66,7 @@ public class ReviewManager {
     public Review select(int reviewId){
         Cursor cursor = readDb.query(tableName, null, "ReviewId = ?", new String[]{reviewId + ""}, null, null, null, null);
         Review r = null;
-        if(cursor != null){
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             r = new Review(
                     Integer.parseInt(cursor.getString(0)),

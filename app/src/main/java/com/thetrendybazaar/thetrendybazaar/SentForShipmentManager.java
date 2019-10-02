@@ -17,7 +17,7 @@ public class SentForShipmentManager {
         vals.put("DateShipped", Calendar.getInstance().getTime().toString());
         vals.put("Address", shippingAddress);
         long id = writeDb.insert(tableName, null, vals);
-        ArrayList<Item> itemsShipped = DatabaseManager.orders.getItemsForOrder(order.orderNumber);
+        ArrayList<Item> itemsShipped = DatabaseManager.orders.getItemsForOrder(order.cartId);
         for(int i = 0; i<itemsShipped.size(); i++){
             Item currItem = itemsShipped.get(i);
             DatabaseManager.itemsShipped.add(currItem.articleId, (int)id);

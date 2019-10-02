@@ -1,10 +1,13 @@
 package com.thetrendybazaar.thetrendybazaar;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -55,44 +59,61 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         db = new EcommerceDatabaseHelper(this);
-
-//        Database
         DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
         //DatabaseManager.currentShoppingCarts.se
 //       this.deleteDatabase("Ecommerce");
-//        String[] names = new String[]{"Nike", "Supreme", "Adidas", "Aeropostale", "American Eagle"};
-//        String[] addresses = new String[] {"New York", "Texas", "California", "New Jersey", "Floria"};
+        String[] names = new String[]{"Nike", "Supreme", "Adidas", "Aeropostale", "American Eagle"};
+        String[] addresses = new String[] {"New York", "Texas", "California", "New Jersey", "Floria"};
 //
-//        for(int i =0; i <5;i++){
-//            //add manufacturers
-//            Manufacturer manufacturer = new Manufacturer(null,
-//                    names[i%5], addresses[i%5], null, null);
-//            DatabaseManager.manufacturers.add(manufacturer);
+//        SQLiteDatabase dbExisits = null;
+//        try {
+//            dbExisits = SQLiteDatabase.openDatabase("/data/data/com.thetrendybazaar.thetrendybazaar/databases/Ecommerce.db", null,
+//                    SQLiteDatabase.OPEN_READONLY);
+//            dbExisits.close();
+//        } catch (android.database.sqlite.SQLiteCantOpenDatabaseException e) {
+//
+//            db = new EcommerceDatabaseHelper(this);
+//            try {
+//                String path = this.getAssets().open("Ecommerce").toString();
+//                Log.d("wad","");
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//
+////        Database
+//            DatabaseManager.setDb(db.getReadDb(), db.getWriteDb());
+//
+//            for(int i =0; i <5;i++){
+//                //add manufacturers
+//                Manufacturer manufacturer = new Manufacturer(null,
+//                        names[i%5], addresses[i%5], null, null);
+//                DatabaseManager.manufacturers.add(manufacturer);
+//            }
+//
+//            for(int i = 0; i < 15; i++){
+//                Customer customer = new Customer(null, "name"+i, "lastName"+i,
+//                        i +"@gmail.com", "password"+i, null, null);
+//                DatabaseManager.customers.addCustomer(customer);
+//                Item item = new Item(null, i%5 + 1, 10,12.50,
+//                        "This is an item description", "Clothing", "Supreme Tee " + i);
+//                DatabaseManager.items.add(item);
+//                Review review = new Review(null,item.articleId,3,
+//                        "This is a detailed review of some random product");
+//                DatabaseManager.reviews.add(review);
+//                List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
+//                DatabaseManager.writes.add(customer.id,reviews.get(0));
+//
+//
+//
+//                //add to supplies table
+//                DatabaseManager.supplies.add(item, i%5+1, (i*25.5 + 7)%50);
+//
+//            }
+//
+//            DatabaseManager.employees.add(new Employee(null, "Worker",
+//                    Calendar.getInstance().getTime(), 1, "Bob",
+//                    "Builder", "Password"));
 //        }
-//
-//        for(int i = 0; i < 15; i++){
-//            Customer customer = new Customer(null, "name"+i, "lastName"+i,
-//                    i +"@g.com", "password", null, null);
-//            DatabaseManager.customers.addCustomer(customer);
-//            Item item = new Item(null, i%5 + 1, 10,12.50,
-//                    "This is an item description", "Clothing", "Supreme Tee " + i);
-//            DatabaseManager.items.add(item);
-//            Review review = new Review(null,item.articleId,3,
-//                    "This is a detailed review of some random product");
-//            DatabaseManager.reviews.add(review);
-//            List<Review> reviews = DatabaseManager.reviews.getReviews(customer.id);
-//            DatabaseManager.writes.add(customer.id,reviews.get(0));
-//
-//
-//
-//            //add to supplies table
-//            DatabaseManager.supplies.add(item, i%5+1, (i*25.5 + 7)%50);
-//
-//        }
-//
-//        DatabaseManager.employees.add(new Employee(null, "Worker",
-//                Calendar.getInstance().getTime(), 1, "Bob",
-//                "Builder", "Password"));
 
 //        Text Views
         mSuggestionText = findViewById(R.id.passwordSuggestionText);

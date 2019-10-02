@@ -138,7 +138,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tShipmentId INT,\n" +
                 "\tArticleId INT,\n" +
                 "\tPRIMARY KEY (ShipmentId,ArticleId),\n" +
-                "\tFOREIGN KEY (ShipmentId) REFERENCES Shipment (ShipmentId),\n" +
+                "\tFOREIGN KEY (ShipmentId) REFERENCES SentForShipment (ShipmentId),\n" +
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
                 ");\n");
 
@@ -251,14 +251,7 @@ public class EcommerceDatabaseHelper extends SQLiteOpenHelper {
                 "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
                 ");\n");
 
-        db.execSQL("\n" +
-                "CREATE TABLE Tags (\n" +
-                "\tArticleId INT,\n" +
-                "\t Tag VARCHAR(50),\n" +
-                "\t GroupNumber INT,\n" +
-                "\tPRIMARY KEY (ArticleId,Tag),\n" +
-                "\tFOREIGN KEY (ArticleId) REFERENCES Item (ArticleId)\n" +
-                ");\n");
+
     }
 
     @Override

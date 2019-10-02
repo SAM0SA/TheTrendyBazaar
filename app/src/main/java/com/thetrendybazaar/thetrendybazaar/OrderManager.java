@@ -31,19 +31,8 @@ public class OrderManager {
         writeDb = wDb;
     }
 
-    public ArrayList<Item> getItemsForOrder(int orderNumber){
-        Cursor cursor = readDb.query(tableName, null, "OrderNumber = ?", new String[] {orderNumber + ""}, null, null, null, null);
-        ArrayList<Item> orderedItems = new ArrayList<>();
-        if(cursor != null && cursor.getCount() > 0){
-            Item i;
-            cursor.moveToFirst();
-            do{
-                i = DatabaseManager.items.select(cursor.getInt(0));
-                orderedItems.add(i);
-            }while(cursor.moveToNext());
-            cursor.close();
-        }
-        return orderedItems;
+    public ArrayList<Item> getItemsForOrder(int cartId){
+        return DatabaseManager.contains.getItemsForShoppingCart(cartId);
     }
     public Order select(int orderNumber){
         Cursor cursor = readDb.query(tableName, null, "OrderNumber= ?", new String[]{orderNumber + ""}, null, null, null, null);

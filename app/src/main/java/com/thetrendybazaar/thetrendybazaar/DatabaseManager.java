@@ -23,7 +23,6 @@ public class DatabaseManager {
     static final SentForShipmentManager sentFor = new SentForShipmentManager();
     static final ContainsManager contains = new ContainsManager();
     static final GeneratedFromManager generatedFrom = new GeneratedFromManager();
-    static final TagsManager tags = new TagsManager();
     static final ItemShippedManager itemsShipped = new ItemShippedManager();
 
 
@@ -47,7 +46,6 @@ public class DatabaseManager {
         contains.setDb(read, write);
         generatedFrom.setDb(read, write);
         currentShoppingCarts.setDb(read, write);
-        tags.setDb(read, write);
         itemsShipped.setDb(read, write);
     }
 }

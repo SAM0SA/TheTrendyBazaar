@@ -69,7 +69,7 @@ public class ImageAdapter extends PagerAdapter {
             case "Supreme Tee":
                 return new int[]{R.drawable.supreme_tee, R.drawable.supreme_tee_black};
             case "Friends Hoodie":
-                return new int[]{R.drawable.friends1, R.drawable.friends2, R.drawable.firends3,
+                return new int[]{R.drawable.friends1, R.drawable.friends2, R.drawable.friends3,
                         R.drawable.friends4};
             case "Summer Tee":
                 return new int[]{R.drawable.summer1, R.drawable.summer2};

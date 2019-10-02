@@ -91,7 +91,7 @@ public class ItemActivity extends AppCompatActivity {
             Review review = new Review(null,id, (int) submitReviwRatingBar.getRating(),
                     detailedReviewBody.getText().toString());
             DatabaseManager.reviews.add(review);
-            DatabaseManager.writes.add(id, review);
+            DatabaseManager.writes.add(Customer.currentCustomerId, review);
             reviews.clear();
             reviews.addAll(DatabaseManager.reviews.getReviews(id));
             reviewsAdapter.notifyDataSetChanged();

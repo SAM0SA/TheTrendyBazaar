@@ -38,6 +38,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         if(DatabaseManager.contains
                 .getItemsForShoppingCart(ShoppingCart.currentShoppingCardId).size() == 0){
             emptyCartText.setVisibility(View.VISIBLE);
+            checkoutBtn.setEnabled(false);
         }
     }
 }
